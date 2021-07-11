@@ -42,7 +42,7 @@ func input():
 		
 	if Input.is_action_just_released("jump"):
 		jump_cut()
-		
+		$Jumpsfx.play()
 	if Input.is_action_pressed("left"):
 		SPEED = -350
 	if not Input.is_action_pressed("left") and SPEED < 0:
@@ -96,7 +96,7 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = 170
 func bounce():
-	velocity.y = JUMPFORCE * 0.9
+	velocity.y = JUMPFORCE * 0.6
 	
 
 

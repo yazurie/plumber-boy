@@ -9,7 +9,7 @@ func _ready():
 	if direction == 1:
 		$AnimatedSprite.flip_h = true
 	$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * direction 
-
+	$AnimatedSprite.play("walk")
 
 
 func _physics_process(delta):
@@ -46,6 +46,7 @@ func _on_top_checker_body_entered(body):
 		$sides_checker.set_collision_mask_bit(0,false)
 		$Timer.start()
 		body.bounce()
+		
 	
 	
 	
