@@ -9,11 +9,11 @@ var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
 export var SPEED = 0
-const JUMPFORCE = -1300
-const GRAVITY = 50
+const JUMPFORCE = -1550
+var GRAVITY = 30
 export var MAXSPEED = 450
 var sprint = 0
-var friction = 0.2
+var friction = 0.5
 var accel = 0.15
 
 
@@ -24,15 +24,16 @@ func jump_cut():
 		velocity.y = -700
 
 
-func input():
+func input(delta):
 	
 	
-	
+	var timedict = OS.get_time()
+	var hour = timedict.hour;
 	
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = JUMPFORCE + GRAVITY
-		print (velocity.x)
+		
 	if Input.is_action_pressed("right"):
 		SPEED = 350
 		
@@ -43,18 +44,24 @@ func input():
 	if Input.is_action_just_released("jump"):
 		jump_cut()
 		$Jumpsfx.play()
+		velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
+		
+		print(velocity.y)
 	if Input.is_action_pressed("left"):
 		SPEED = -350
 	if not Input.is_action_pressed("left") and SPEED < 0:
 		SPEED += 50
-		 
 	if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
-		if sprint < 20:
-			sprint += 2
+		if sprint < 15:
+			sprint += 1
 		if velocity.x > 350:
 			$Sprite.play("Run")
 			$Sprite.flip_h = true
-		
+		velocity.x = lerp(velocity.x, velocity.x + sprint, 0.08)
+	if Input.is_action_pressed("Run") and Input.is_action_pressed("right") and not is_on_floor():
+		if velocity.y > 0:
+			GRAVITY = 23
+		velocity.y = velocity.y + -5
 	if not Input.is_action_pressed("Run"):
 		if sprint > 0:
 			sprint -= 5
@@ -78,7 +85,7 @@ func Animation():
 	
 	
 func _physics_process(delta):
-	input()
+	input(delta)
 	Animation()
 	
 	
@@ -88,7 +95,7 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		if velocity.y > 0:
-			
+			GRAVITY = 70
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
@@ -113,7 +120,7 @@ func ouch(var enemyposx):
 	Input.action_release("left")
 	Input.action_release("right")
 	$Timer.start()
-
+	$Sprite.play("Fall")
 
 
 func _on_Timer_timeout():
@@ -124,4 +131,19 @@ func _on_Timer_timeout():
 
 
 
+
+
+
+func _on_void_body_entered(body):
+	get_tree().change_scene("res://Level1.tscn")
+
+
+
+
+
+onready var Coin1 = get_node("../Coin/Coin1")
+
+
+func _on_Coin1_body_entered(body):
+	Coin1.ded()
 

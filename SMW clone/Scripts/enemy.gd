@@ -46,8 +46,8 @@ func _on_top_checker_body_entered(body):
 		$sides_checker.set_collision_mask_bit(0,false)
 		$Timer.start()
 		body.bounce()
-		
-	
+		$Squish.play()
+		$CollisionShape2D.disabled
 	
 	
 	
@@ -55,7 +55,7 @@ func _on_top_checker_body_entered(body):
 func _on_sides_checker_body_entered(body):
 	if body.is_in_group("players"):
 		print ("ouch")
-		
+		$CollisionShape2D.disabled
 		body.ouch(position.x)
 
 func _on_Timer_timeout():
