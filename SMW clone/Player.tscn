@@ -101,6 +101,8 @@ animation = "Fall"
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 92.6258, -1.48869 )
+scale = Vector2( 0.9, 0.9 )
+offset = Vector2( -2, 0 )
 current = true
 zoom = Vector2( 0.6, 0.6 )
 
