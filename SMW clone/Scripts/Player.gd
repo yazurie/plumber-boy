@@ -9,11 +9,11 @@ var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
 export var SPEED = 0
-const JUMPFORCE = -1550
-var GRAVITY = 30
+const JUMPFORCE = -1450
+var GRAVITY = 20
 export var MAXSPEED = 450
 var sprint = 0
-var friction = 0.5
+var friction = 0.55
 var accel = 0.15
 
 
@@ -98,6 +98,11 @@ func _physics_process(delta):
 			GRAVITY = 70
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
+		if Input.is_action_pressed("right"):
+			velocity.x = velocity.x + 15
+			
+		if Input.is_action_pressed("left"):
+			velocity.x = velocity.x + -15
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
 	move_and_slide(velocity, Vector2.UP) 
 	if is_on_floor():

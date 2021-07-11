@@ -36,10 +36,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 13.9323, 6.5 )
+extents = Vector2( 16.7264, 1.48768 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 16.394, 9.03792 )
+extents = Vector2( 16.8352, 10.9497 )
 
 [node name="enemy" type="KinematicBody2D"]
 position = Vector2( -2.75452, 0.5 )
@@ -68,7 +68,7 @@ collision_layer = 16
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
-position = Vector2( 3.12923, -13.6594 )
+position = Vector2( 3.27628, -12.4829 )
 shape = SubResource( 6 )
 
 [node name="sides_checker" type="Area2D" parent="."]
