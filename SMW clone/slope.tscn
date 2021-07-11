@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Screenshot_2.png" type="Texture" id=1]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+position = Vector2( -0.353546, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 4.85184, -3.33282 )
+scale = Vector2( 1.0294, 0.972257 )
+polygon = PoolVector2Array( -35.4545, -83.666, -41.9801, -95.6662, -133.683, -1.84656, -128.531, 3.60807 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 1 )
