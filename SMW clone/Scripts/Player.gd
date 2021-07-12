@@ -43,10 +43,11 @@ func input(delta):
 		
 	if Input.is_action_just_released("jump"):
 		jump_cut()
-		$Jumpsfx.play()
 		velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
 		
 		print(velocity.y)
+	if Input.is_action_just_pressed("jump"):
+		$Jumpsfx.play()
 	if Input.is_action_pressed("left"):
 		SPEED = -350
 	if not Input.is_action_pressed("left") and SPEED < 0:
@@ -152,3 +153,13 @@ onready var Coin1 = get_node("../Coin/Coin1")
 func _on_Coin1_body_entered(body):
 	Coin1.ded()
 
+
+
+func _on_Spike1_body_entered(body):
+	set_modulate(Color(1,0.3,0.3,0.3))
+	velocity.y = JUMPFORCE * 0.8
+	
+	Input.action_release("left")
+	Input.action_release("right")
+	$Timer.start()
+	$Sprite.play("Fall")
