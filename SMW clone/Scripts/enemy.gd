@@ -36,6 +36,7 @@ func _physics_process(delta):
 
 func _on_top_checker_body_entered(body):
 	if body.is_in_group("players"):
+		$CollisionShape2D.disabled = true
 		$AnimatedSprite.play("squish")
 		speed = 0
 		set_collision_layer_bit(4,false)
@@ -47,7 +48,7 @@ func _on_top_checker_body_entered(body):
 		$Timer.start()
 		body.bounce()
 		$Squish.play()
-		$CollisionShape2D.disabled
+		
 	
 	
 	
@@ -55,7 +56,7 @@ func _on_top_checker_body_entered(body):
 func _on_sides_checker_body_entered(body):
 	if body.is_in_group("players"):
 		print ("ouch")
-		$CollisionShape2D.disabled
+		$CollisionShape2D.disabled = true
 		body.ouch(position.x)
 
 func _on_Timer_timeout():

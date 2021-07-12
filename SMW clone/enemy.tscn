@@ -10,36 +10,36 @@ extents = Vector2( 14.5087, 16.0929 )
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 38, 22, 19, 22 )
+region = Rect2( 0, 22, 17, 22 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 17, 22 )
+region = Rect2( 18, 22, 18, 22 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 18, 22, 18, 22 )
+region = Rect2( 38, 22, 19, 22 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 2 ) ],
-"loop": false,
-"name": "squish",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "walk",
 "speed": 3.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": false,
+"name": "squish",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 16.7264, 1.48768 )
+extents = Vector2( 10.2558, 1.48768 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 16.8352, 10.9497 )
+extents = Vector2( 19.7763, 10.9497 )
 
 [node name="enemy" type="KinematicBody2D"]
 position = Vector2( -2.75452, 0.5 )
@@ -47,6 +47,9 @@ scale = Vector2( 1.7, 1.7 )
 collision_layer = 16
 collision_mask = 35
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 3.11814, 7.12719 )
@@ -68,7 +71,7 @@ collision_layer = 16
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
-position = Vector2( 3.27628, -12.4829 )
+position = Vector2( 2.54099, -11.4535 )
 shape = SubResource( 6 )
 
 [node name="sides_checker" type="Area2D" parent="."]
@@ -85,6 +88,7 @@ one_shot = true
 
 [node name="Squish" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
 [connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]
 [connection signal="body_entered" from="sides_checker" to="." method="_on_sides_checker_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

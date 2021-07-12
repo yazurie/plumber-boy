@@ -12,6 +12,7 @@ __meta__ = {
 position = Vector2( 4.85184, -3.33282 )
 scale = Vector2( 1.0294, 0.972257 )
 polygon = PoolVector2Array( -35.4545, -83.666, -41.9801, -95.6662, -133.683, -1.84656, -128.531, 3.60807 )
+one_way_collision = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
