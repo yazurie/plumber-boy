@@ -30,7 +30,7 @@ All notable changes to this project will be documented in this file.
 - - makes moving around feel actually decent, research is being done on the values to make them feel even closer to super mario world.
 
 - Variable gravity
-- - gravity changed to increase gradually and to reach higher values when descending from a jump to feel tighter and still giving you enough time during ascending just like SMW
+- - gravity changed to increase gradually and to reach higher values when descending from a jump to feel tighter while still giving you enough time during ascending just like SMW
 
 ## TO DO LIST
 - fix animation bugs (DONE) 
