@@ -9,7 +9,7 @@ var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
 export var SPEED = 0
-const JUMPFORCE = -1450
+const JUMPFORCE = -1200
 var GRAVITY = 20
 export var MAXSPEED = 450
 var sprint = 0
@@ -26,6 +26,8 @@ func jump_cut():
 
 func input(delta):
 	
+	if Input.is_action_just_pressed("ui_accept"):
+		get_tree().change_scene("res://Level1.tscn")
 	
 	var timedict = OS.get_time()
 	var hour = timedict.hour;
@@ -64,7 +66,7 @@ func input(delta):
 		print (velocity.x)
 	if Input.is_action_pressed("Run") and not is_on_floor() and Input.is_action_pressed("right"):
 		if velocity.y > 0:
-			GRAVITY = 23
+			GRAVITY = 20
 		velocity.y = velocity.y + -5
 	if not Input.is_action_pressed("Run"):
 		if sprint > 0:
@@ -101,12 +103,15 @@ func _physics_process(delta):
 	if is_on_ceiling():
 		velocity.y = 25
 	
+	if velocity.x > 0 and is_on_floor():
+		$Sprite.play("walk")
 	
 	if not is_on_floor():
 		if velocity.y > 0:
-			GRAVITY = 70
+			GRAVITY = 45
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
+		friction = -0.5
 		if Input.is_action_pressed("right"):
 			velocity.x = velocity.x + 5
 			
@@ -159,9 +164,6 @@ func _on_void_body_entered(body):
 onready var Coin1 = get_node("../Coin/Coin1")
 onready var BreakableBlock = get_node("../BreakableBlock/BreakableBlock1")
 
-func _on_Coin1_body_entered(body):
-	if body.is_in_group("players"):
-		Coin1.ded()
 
 
 
@@ -184,3 +186,45 @@ func _on_Spike1_body_entered(body):
 func _on_BreakableBlock1_body_entered(body):
 	if body.is_in_group("players"):
 		BreakableBlock.broke()
+
+
+
+
+
+onready var Coin2 = get_node("../Coin/Coin2")
+onready var Coin3 = get_node("../Coin/Coin3")
+onready var Coin6 = get_node("../Coin/Coin6")
+onready var Coin5 = get_node("../Coin/Coin5")
+onready var Coin4 = get_node("../Coin/Coin4")
+
+
+
+
+func _on_Coin1_body_entered(body):
+	if body.is_in_group("players"):
+		Coin1.ded()
+
+
+func _on_Coin2_body_entered(body):
+	if body.is_in_group("players"):
+		Coin2.ded()
+
+
+func _on_Coin3_body_entered(body):
+	if body.is_in_group("players"):
+		Coin3.ded()
+
+
+func _on_Coin6_body_entered(body):
+	if body.is_in_group("players"):
+		Coin6.ded()
+
+
+func _on_Coin5_body_entered(body):
+	if body.is_in_group("players"):
+		Coin5.ded()
+
+
+func _on_Coin4_body_entered(body):
+	if body.is_in_group("players"):
+		Coin4.ded()
