@@ -9,19 +9,19 @@ var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
 export var SPEED = 0
-const JUMPFORCE = -1200
-var GRAVITY = 20
+const JUMPFORCE = -1230
+var GRAVITY = 30
 export var MAXSPEED = 450
 var sprint = 0
-var friction = 0.6
+var friction = 2
 var accel = 0.1
-
+onready var coyote = $Coyote
 
 
 
 func jump_cut():
-	if velocity.y < -700:
-		velocity.y = -700
+	if velocity.y < -600:
+		velocity.y = -600
 
 
 func input(delta):
@@ -33,12 +33,14 @@ func input(delta):
 	var hour = timedict.hour;
 	
 	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y = JUMPFORCE + GRAVITY
-		
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = JUMPFORCE + GRAVITY
+			$Jumpsfx.play()
+		if not is_on_floor():
+			$Buffer.start()
 	if Input.is_action_pressed("right"):
 		SPEED = 350
-		
 	if not Input.is_action_pressed("right") and SPEED > 0:
 		
 		SPEED = -50
@@ -46,20 +48,15 @@ func input(delta):
 	if Input.is_action_just_released("jump"):
 		jump_cut()
 		velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
-		
-	if Input.is_action_just_pressed("jump"):
-		$Jumpsfx.play()
 	if Input.is_action_pressed("left"):
 		SPEED = -350
 	if not Input.is_action_pressed("left") and SPEED < 0:
 		SPEED += 50
 	if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
-		if sprint < 15:
-			sprint += 1
+		sprint = 200
 		velocity.x = lerp(velocity.x, velocity.x + sprint, 0.08)
 	if Input.is_action_pressed("Run") and Input.is_action_pressed("left"):
-		if sprint > 15:
-			sprint -= 1
+		sprint = -200
 		velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
 		if velocity.x < -512:
 			velocity.x = -512
@@ -68,15 +65,14 @@ func input(delta):
 		if velocity.y > 0:
 			GRAVITY = 20
 		velocity.y = velocity.y + -5
-	if not Input.is_action_pressed("Run"):
-		if sprint > 0:
-			sprint -= 5
-		if sprint < 0:
-			sprint += 5
+	if Input.is_action_pressed("Run") and not Input.is_action_pressed("right"):
+		sprint = 0
+	if Input.is_action_pressed("Run") and not Input.is_action_pressed("left"):
+		sprint = 0
 	if Input.is_action_just_released("right"):
 		velocity.x = lerp(velocity.x, 0, friction)
 	if Input.is_action_just_released("left"):
-		velocity.x = lerp(velocity.x, 0, friction)
+		velocity.x = lerp(velocity.x, 0, -friction)
 func Animation():
 	if Input.is_action_pressed("right"):
 		$Sprite.play("Walk")
@@ -99,7 +95,8 @@ func _physics_process(delta):
 	input(delta)
 	Animation()
 	
-	
+	if velocity.x > 350:
+		friction = -0.2
 	if is_on_ceiling():
 		velocity.y = 25
 	
@@ -108,10 +105,10 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		if velocity.y > 0:
-			GRAVITY = 45
+			GRAVITY = 55
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
-		friction = -0.5
+		friction = -0.01
 		if Input.is_action_pressed("right"):
 			velocity.x = velocity.x + 5
 			
@@ -119,6 +116,7 @@ func _physics_process(delta):
 			velocity.x = velocity.x + -5
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
 	move_and_slide(velocity, Vector2.UP) 
+	var was_on_floor = is_on_floor()
 	if is_on_floor():
 		velocity.y = 170
 func bounce():
@@ -228,3 +226,12 @@ func _on_Coin5_body_entered(body):
 func _on_Coin4_body_entered(body):
 	if body.is_in_group("players"):
 		Coin4.ded()
+
+
+
+
+
+
+
+
+

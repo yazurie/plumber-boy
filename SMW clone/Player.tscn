@@ -14,23 +14,23 @@ extents = Vector2( 22.3913, 33.3823 )
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 57, 77 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 55, 80 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 50, 63 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 51, 67 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 57, 77 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 55, 80 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
@@ -54,20 +54,20 @@ animations = [ {
 "name": "Walk",
 "speed": 7.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "Run",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "Air",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "death",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Run",
-"speed": 20.0
 }, {
 "frames": [ SubResource( 6 ) ],
 "loop": false,
@@ -107,9 +107,12 @@ volume_db = -10.097
 wait_time = 0.1
 one_shot = true
 
+[node name="Buffer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="Coyote" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 10.0
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="Coyote" to="." method="_on_Timerspeed_timeout"]
