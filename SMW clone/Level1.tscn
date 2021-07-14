@@ -428,11 +428,12 @@ rotation = 1.5708
 scale = Vector2( 0.2, 0.6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2122.42, -287.702 )
+position = Vector2( 2103.39, -218.728 )
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -6.059
+autoplay = true
 
 [node name="void" type="Area2D" parent="."]
 position = Vector2( -82.3496, 1216.54 )
@@ -582,10 +583,10 @@ texture = ExtResource( 9 )
 
 [node name="Label2" type="Label" parent="."]
 modulate = Color( 1, 0, 0.960784, 1 )
-margin_left = 1643.25
-margin_top = -339.491
-margin_right = 1763.25
-margin_bottom = 154.509
+margin_left = 1638.49
+margin_top = -363.275
+margin_right = 1758.49
+margin_bottom = 130.725
 rect_scale = Vector2( 5, 5 )
 text = "PRESS C TO SPRINT"
 __meta__ = {

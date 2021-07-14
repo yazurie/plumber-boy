@@ -5,6 +5,7 @@ extends KinematicBody2D
 
 
 
+
 var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
@@ -16,16 +17,17 @@ var sprint = 0
 var friction = 2
 var accel = 0.1
 onready var coyote = $Coyote
-
+var is_jumping = false
 
 
 func jump_cut():
 	if velocity.y < -600:
 		velocity.y = -600
+	if velocity.y < -450:
+		velocity.y = -450
 
 
 func input(delta):
-	
 	if Input.is_action_just_pressed("ui_accept"):
 		get_tree().change_scene("res://Level1.tscn")
 	
@@ -33,14 +35,16 @@ func input(delta):
 	var hour = timedict.hour;
 	
 	
+	
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMPFORCE + GRAVITY
 			$Jumpsfx.play()
+			is_jumping = true
 		if not is_on_floor():
 			$Buffer.start()
 	if Input.is_action_pressed("right"):
-		SPEED = 350
+		SPEED = 350	
 	if not Input.is_action_pressed("right") and SPEED > 0:
 		
 		SPEED = -50
@@ -63,7 +67,7 @@ func input(delta):
 		print (velocity.x)
 	if Input.is_action_pressed("Run") and not is_on_floor() and Input.is_action_pressed("right"):
 		if velocity.y > 0:
-			GRAVITY = 20
+			GRAVITY = 55
 		velocity.y = velocity.y + -5
 	if Input.is_action_pressed("Run") and not Input.is_action_pressed("right"):
 		sprint = 0
@@ -94,7 +98,7 @@ func Animation():
 func _physics_process(delta):
 	input(delta)
 	Animation()
-	
+	move_and_slide(velocity, Vector2.UP) 
 	if velocity.x > 350:
 		friction = -0.2
 	if is_on_ceiling():
@@ -102,7 +106,6 @@ func _physics_process(delta):
 	
 	if velocity.x > 0 and is_on_floor():
 		$Sprite.play("walk")
-	
 	if not is_on_floor():
 		if velocity.y > 0:
 			GRAVITY = 55
@@ -115,7 +118,6 @@ func _physics_process(delta):
 		if Input.is_action_pressed("left"):
 			velocity.x = velocity.x + -5
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
-	move_and_slide(velocity, Vector2.UP) 
 	var was_on_floor = is_on_floor()
 	if is_on_floor():
 		velocity.y = 170
@@ -226,6 +228,9 @@ func _on_Coin5_body_entered(body):
 func _on_Coin4_body_entered(body):
 	if body.is_in_group("players"):
 		Coin4.ded()
+
+
+
 
 
 

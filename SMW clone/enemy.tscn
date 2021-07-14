@@ -39,7 +39,7 @@ animations = [ {
 extents = Vector2( 10.2558, 1.48768 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 19.7763, 10.9497 )
+extents = Vector2( 16.8352, 10.9497 )
 
 [node name="enemy" type="KinematicBody2D"]
 position = Vector2( -2.75452, 0.5 )
