@@ -17,9 +17,13 @@ var sprint = 0
 var friction = 0.55
 var accel = 0.1
 onready var coyote = $Coyote
-var is_jumping = false
+var can_jump = true
 var INPUT = true
 var ANIM = true
+var is_jumping = false
+var was_on_floor = is_on_floor()
+
+
 func jump_cut():
 	if velocity.y < -600:
 		velocity.y = -600
@@ -36,9 +40,9 @@ func input(delta):
 		var hour = timedict.hour;
 	
 	
-	
 		if Input.is_action_just_pressed("jump"):
-			if is_on_floor():
+			if can_jump:
+				is_jumping = true
 				velocity.y = JUMPFORCE + GRAVITY
 				$Jumpsfx.play()
 			if not is_on_floor():
@@ -97,7 +101,6 @@ func Animation():
 			$Sprite.set_speed_scale(1)
 	
 func _physics_process(delta):
-	print (is_jumping)
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
@@ -109,24 +112,29 @@ func _physics_process(delta):
 	if velocity.x > 0 and is_on_floor():
 		$Sprite.play("walk")
 	if not is_on_floor():
+		can_jump = false
 		$CollisionShape2D.shape.extents = Vector2(23, 36)
-		is_jumping = true
 		if velocity.y > 0:
+			print(velocity.y)
 			GRAVITY = 55
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
 		friction = 0.4
+		coyote.start()
 	else:
-		$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
+			$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
 	var was_on_floor = is_on_floor()
 	if is_on_floor():
 		velocity.y = 170
-		is_jumping = false
+		can_jump = true
 		$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
 	if GRAVITY < 40:
 		GRAVITY = 40
-		
+	if not is_on_floor() and was_on_floor and not is_jumping:
+		coyote.start()
+		velocity.y = 0
+		can_jump = true
 func bounce():
 	velocity.y = JUMPFORCE * 0.6
 	
@@ -248,11 +256,14 @@ onready var level = get_node("../../Level1")
 onready var background = get_node("../Background")
 onready var tiles = get_node("../TileMap")
 onready var coloor = get_node("../ColorRect")
-onready var goal = get_node("../GOALPOST/Area2D")
+onready var goal = get_node("../GOALPOST/")
 onready var Timer3 = get_node("../GOALPOST/Area2D/Timer3")
 onready var Timer4 = get_node("../GOALPOST/Area2D/Timer4")
+onready var Timer5 = get_node("../GOALPOST/Area2D/Timer5")
+onready var clear = get_node("../LABELS/CLEAR")
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("players"):
+		clear.visible = true
 		INPUT = false
 		ANIM = false
 		background.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
@@ -262,8 +273,11 @@ func _on_Area2D_body_entered(body):
 		Timer2.start()
 		Timer3.start()
 		Timer4.start()
+		Timer5.start()
 		CourseClear.play()
 		music.stop()
+		$Sprite.set_speed_scale(1)
+		
 
 func _on_Timer2_timeout():
 	get_tree().change_scene("res://Level1.tscn")
@@ -271,8 +285,19 @@ func _on_Timer2_timeout():
 
 func _on_Timer3_timeout():
 	IMOUT.play()
-
+	set_modulate(lerp(get_modulate(), Color(0,0,0,0.5), 1))
 
 
 func _on_Timer4_timeout():
-	set_modulate(lerp(get_modulate(), Color(0,0,0,0.5), 1))
+	CourseClear.stop()
+
+
+
+
+func _on_Coyote_timeout():
+	velocity.y += GRAVITY
+	can_jump = false
+
+
+func _on_Timer5_timeout():
+	$Sprite.play("VICTORY")
