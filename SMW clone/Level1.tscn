@@ -9,7 +9,7 @@
 [ext_resource path="res://Coin1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Mushroom.tscn" type="PackedScene" id=9]
-[ext_resource path="res://enemy2.tscn" type="PackedScene" id=10]
+[ext_resource path="res://dragon1.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Spike1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://fonts/SuperMarioBros-ov7d.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://ASSETS/blocks/blue brick.png" type="Texture" id=13]
@@ -459,7 +459,7 @@ texture = ExtResource( 5 )
 [node name="slopes" type="Node2D" parent="."]
 
 [node name="StaticBody2D" parent="slopes" instance=ExtResource( 3 )]
-position = Vector2( 2416.63, -366.468 )
+position = Vector2( 2602.36, -372.818 )
 scale = Vector2( 2, 2 )
 
 [node name="Spikes" type="Node2D" parent="."]
@@ -578,8 +578,6 @@ scale = Vector2( 1.5, 1.5 )
 position = Vector2( 8720.39, 177.056 )
 scale = Vector2( 1.5, 1.5 )
 
-[node name="dragon1" parent="GOOMBA" instance=ExtResource( 8 )]
-
 [node name="Coin" type="Node2D" parent="."]
 scale = Vector2( 3, 3 )
 
@@ -599,14 +597,7 @@ position = Vector2( 1127.85, -131.587 )
 position = Vector2( 1096.13, -132.38 )
 
 [node name="Coin4" parent="Coin" instance=ExtResource( 7 )]
-position = Vector2( 796.454, -221.174 )
-
-[node name="dragon" type="Node2D" parent="."]
-position = Vector2( 3.36359, -3.36353 )
-
-[node name="enemyty1" parent="dragon" instance=ExtResource( 10 )]
-position = Vector2( 748.086, 1137.08 )
-scale = Vector2( 1, 1 )
+position = Vector2( 874.766, -200.538 )
 
 [node name="LABELS" type="Node2D" parent="."]
 
@@ -660,14 +651,21 @@ __meta__ = {
 [node name="Mushrooms" type="Node2D" parent="."]
 
 [node name="Mushroom1" parent="Mushrooms" instance=ExtResource( 9 )]
-position = Vector2( 2747.9, -212.76 )
+position = Vector2( 2162.15, -219.11 )
 
 [node name="BULLETS" type="Node2D" parent="."]
 scale = Vector2( 0.7, 0.7 )
 
 [node name="BULLET" parent="BULLETS" instance=ExtResource( 24 )]
-position = Vector2( 4361.62, -443.596 )
+position = Vector2( 4832.2, -1307.98 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="dragon" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="dragon1" parent="dragon" instance=ExtResource( 10 )]
+position = Vector2( 5600.34, -501.059 )
+scale = Vector2( 1, 1 )
 
 [connection signal="body_entered" from="Spikes/Spike1" to="Player" method="_on_Spike1_body_entered"]
 [connection signal="body_entered" from="Spikes/Spike3" to="Player" method="_on_Spike1_body_entered"]

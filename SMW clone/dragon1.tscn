@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/enemy.gd" type="Script" id=1]
+[ext_resource path="res://SOUNDS/smw_stomp.wav" type="AudioStream" id=2]
+[ext_resource path="res://ASSETS/enemy/dragon walk1.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/enemy/dragon walk2.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/enemy/dragon squish.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 48.3417, 90.7032 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "squish",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 64.469, 18.2443 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 66.0634, 44.0129 )
+
+[node name="dragon1" type="KinematicBody2D"]
+position = Vector2( 2540.56, -354.159 )
+scale = Vector2( 1.5, 1.5 )
+collision_layer = 16
+collision_mask = 35
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -237.837, 19.8484 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -244.735, 10.263 )
+scale = Vector2( 2.2, 2.2 )
+frames = SubResource( 5 )
+animation = "walk"
+playing = true
+
+[node name="floor_checker" type="RayCast2D" parent="."]
+position = Vector2( -241.532, 30 )
+scale = Vector2( 3, 3 )
+enabled = true
+cast_to = Vector2( 0, 40 )
+
+[node name="top_checker" type="Area2D" parent="."]
+position = Vector2( 2.245, 0 )
+collision_layer = 16
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
+position = Vector2( -247.394, -73.5631 )
+shape = SubResource( 6 )
+
+[node name="sides_checker" type="Area2D" parent="."]
+position = Vector2( 90.0857, 8.05341 )
+collision_layer = 0
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sides_checker"]
+position = Vector2( -333.86, -12.446 )
+shape = SubResource( 7 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Squish" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]
+[connection signal="body_entered" from="sides_checker" to="." method="_on_sides_checker_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
