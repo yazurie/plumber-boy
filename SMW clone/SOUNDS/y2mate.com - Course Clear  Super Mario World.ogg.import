@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/y2mate.com - Course Clear  Super Mario World.ogg-ec8683b3e685f726e461de535ce7b68f.oggstr"
+
+[deps]
+
+source_file="res://SOUNDS/y2mate.com - Course Clear  Super Mario World.ogg"
+dest_files=[ "res://.import/y2mate.com - Course Clear  Super Mario World.ogg-ec8683b3e685f726e461de535ce7b68f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

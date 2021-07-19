@@ -10,16 +10,16 @@ var jump_timer = 0
 var velocity = Vector2()
 const SHORTHOP = -600
 export var SPEED = 0
-const JUMPFORCE = -1230
-var GRAVITY = 30
+var JUMPFORCE = -1230
+var GRAVITY = 40
 export var MAXSPEED = 450
 var sprint = 0
-var friction = 2
+var friction = 0.55
 var accel = 0.1
 onready var coyote = $Coyote
 var is_jumping = false
-
-
+var INPUT = true
+var ANIM = true
 func jump_cut():
 	if velocity.y < -600:
 		velocity.y = -600
@@ -28,74 +28,76 @@ func jump_cut():
 
 
 func input(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		get_tree().change_scene("res://Level1.tscn")
+	if INPUT:
+		if Input.is_action_just_pressed("ui_accept"):
+			get_tree().change_scene("res://Level1.tscn")
 	
-	var timedict = OS.get_time()
-	var hour = timedict.hour;
+		var timedict = OS.get_time()
+		var hour = timedict.hour;
 	
 	
 	
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = JUMPFORCE + GRAVITY
-			$Jumpsfx.play()
-			is_jumping = true
-		if not is_on_floor():
-			$Buffer.start()
-	if Input.is_action_pressed("right"):
-		SPEED = 350	
-	if not Input.is_action_pressed("right") and SPEED > 0:
-		
-		SPEED = -50
-		
-	if Input.is_action_just_released("jump"):
-		jump_cut()
-		velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
-	if Input.is_action_pressed("left"):
-		SPEED = -350
-	if not Input.is_action_pressed("left") and SPEED < 0:
-		SPEED += 50
-	if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
-		sprint = 200
-		velocity.x = lerp(velocity.x, velocity.x + sprint, 0.08)
-	if Input.is_action_pressed("Run") and Input.is_action_pressed("left"):
-		sprint = -200
-		velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
-		if velocity.x < -512:
-			velocity.x = -512
-		print (velocity.x)
-	if Input.is_action_pressed("Run") and not is_on_floor() and Input.is_action_pressed("right"):
-		if velocity.y > 0:
-			GRAVITY = 55
-		velocity.y = velocity.y + -5
-	if Input.is_action_pressed("Run") and not Input.is_action_pressed("right"):
-		sprint = 0
-	if Input.is_action_pressed("Run") and not Input.is_action_pressed("left"):
-		sprint = 0
-	if Input.is_action_just_released("right"):
-		velocity.x = lerp(velocity.x, 0, friction)
-	if Input.is_action_just_released("left"):
-		velocity.x = lerp(velocity.x, 0, -friction)
+		if Input.is_action_just_pressed("jump"):
+			if is_on_floor():
+				velocity.y = JUMPFORCE + GRAVITY
+				$Jumpsfx.play()
+			if not is_on_floor():
+				$Buffer.start()
+		if Input.is_action_pressed("right"):
+			SPEED = 350	
+		if not Input.is_action_pressed("right") and SPEED > 0:
+			
+			SPEED = -50
+			
+		if Input.is_action_just_released("jump"):
+			jump_cut()
+			velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
+		if Input.is_action_pressed("left"):
+			SPEED = -350
+		if not Input.is_action_pressed("left") and SPEED < 0:
+			SPEED += 50
+		if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
+			sprint = 200
+			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.08)
+		if Input.is_action_pressed("Run") and Input.is_action_pressed("left"):
+			sprint = -200
+			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
+			if velocity.x < -512:
+				velocity.x = -512
+			print (velocity.x)
+		if Input.is_action_pressed("Run") and not is_on_floor() and Input.is_action_pressed("right"):
+			if velocity.y > 0:
+				GRAVITY = 55
+			velocity.y = velocity.y + -5
+		if Input.is_action_pressed("Run") and not Input.is_action_pressed("right"):
+			sprint = 0
+		if Input.is_action_pressed("Run") and not Input.is_action_pressed("left"):
+			sprint = 0
+		if Input.is_action_just_released("right"):
+			velocity.x = lerp(velocity.x, 0, friction)
+		if Input.is_action_just_released("left"):
+			velocity.x = lerp(velocity.x, 0, friction)
 func Animation():
-	if Input.is_action_pressed("right"):
-		$Sprite.play("Walk")
-		$Sprite.flip_h = true
-		
-	if Input.is_action_pressed("left"):
-		$Sprite.play("Walk")
-		$Sprite.flip_h = false
-	if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
-		$Sprite.play("idle")
-	
-	if not is_on_floor():
-		$Sprite.play("Air")
-	if Input.is_action_pressed("Run") and Input.is_action_pressed("right") and is_on_floor() or Input.is_action_pressed("Run") and Input.is_action_pressed("left") and is_on_floor():
-		$Sprite.set_speed_scale(2)
-	else:
-		$Sprite.set_speed_scale(1)
+	if ANIM:
+		if Input.is_action_pressed("right"):
+			$Sprite.play("Walk")
+			$Sprite.flip_h = true
+			
+		if Input.is_action_pressed("left"):
+			$Sprite.play("Walk")
+			$Sprite.flip_h = false
+		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
+			$Sprite.play("idle")
+			
+		if not is_on_floor():
+			$Sprite.play("Air")
+		if Input.is_action_pressed("Run") and Input.is_action_pressed("right") and is_on_floor() or Input.is_action_pressed("Run") and Input.is_action_pressed("left") and is_on_floor():
+			$Sprite.set_speed_scale(2)
+		else:
+			$Sprite.set_speed_scale(1)
 	
 func _physics_process(delta):
+	print (is_jumping)
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
@@ -107,20 +109,24 @@ func _physics_process(delta):
 	if velocity.x > 0 and is_on_floor():
 		$Sprite.play("walk")
 	if not is_on_floor():
+		$CollisionShape2D.shape.extents = Vector2(23, 36)
+		is_jumping = true
 		if velocity.y > 0:
 			GRAVITY = 55
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
-		friction = -0.01
-		if Input.is_action_pressed("right"):
-			velocity.x = velocity.x + 5
-			
-		if Input.is_action_pressed("left"):
-			velocity.x = velocity.x + -5
+		friction = 0.4
+	else:
+		$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
 	var was_on_floor = is_on_floor()
 	if is_on_floor():
 		velocity.y = 170
+		is_jumping = false
+		$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
+	if GRAVITY < 40:
+		GRAVITY = 40
+		
 func bounce():
 	velocity.y = JUMPFORCE * 0.6
 	
@@ -234,9 +240,39 @@ func _on_Coin4_body_entered(body):
 
 
 
+onready var Timer2 = get_node("../GOALPOST/Area2D/Timer2")
+onready var CourseClear = get_node("../GOALPOST/Area2D/CourseClear")
+onready var IMOUT = get_node("../GOALPOST/Area2D/IMOUT")
+onready var music = get_node("../music")
+onready var level = get_node("../../Level1")
+onready var background = get_node("../Background")
+onready var tiles = get_node("../TileMap")
+onready var coloor = get_node("../ColorRect")
+onready var goal = get_node("../GOALPOST/Area2D")
+onready var Timer3 = get_node("../GOALPOST/Area2D/Timer3")
+onready var Timer4 = get_node("../GOALPOST/Area2D/Timer4")
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("players"):
+		INPUT = false
+		ANIM = false
+		background.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		tiles.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		coloor.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		goal.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		Timer2.start()
+		Timer3.start()
+		Timer4.start()
+		CourseClear.play()
+		music.stop()
+
+func _on_Timer2_timeout():
+	get_tree().change_scene("res://Level1.tscn")
+
+
+func _on_Timer3_timeout():
+	IMOUT.play()
 
 
 
-
-
-
+func _on_Timer4_timeout():
+	set_modulate(lerp(get_modulate(), Color(0,0,0,0.5), 1))
