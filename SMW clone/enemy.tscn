@@ -4,41 +4,41 @@
 [ext_resource path="res://Scripts/enemy.gd" type="Script" id=2]
 [ext_resource path="res://SOUNDS/smw_stomp.wav" type="AudioStream" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 14.5087, 16.0929 )
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 17, 22 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 18, 22, 18, 22 )
-
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=18]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 38, 22, 19, 22 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 22, 17, 22 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 18, 22, 18, 22 )
+
+[sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "walk",
-"speed": 3.0
-}, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 18 ) ],
 "loop": false,
 "name": "squish",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "walk",
+"speed": 3.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 10.2558, 1.48768 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 16.8352, 10.9497 )
 
 [node name="enemy" type="KinematicBody2D"]
@@ -53,12 +53,12 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 3.11814, 7.12719 )
-shape = SubResource( 1 )
+shape = SubResource( 17 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.222725, 0.8909 )
 scale = Vector2( 2, 2.0405 )
-frames = SubResource( 5 )
+frames = SubResource( 21 )
 animation = "walk"
 
 [node name="floor_checker" type="RayCast2D" parent="."]
@@ -72,7 +72,7 @@ collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
 position = Vector2( 2.54099, -11.4535 )
-shape = SubResource( 6 )
+shape = SubResource( 22 )
 
 [node name="sides_checker" type="Area2D" parent="."]
 position = Vector2( 90.0857, 8.05341 )
@@ -81,7 +81,7 @@ collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sides_checker"]
 position = Vector2( -86.9182, -1.22137 )
-shape = SubResource( 7 )
+shape = SubResource( 23 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

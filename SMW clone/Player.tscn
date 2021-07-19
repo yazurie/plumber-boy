@@ -131,6 +131,9 @@ wait_time = 0.2
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
 
+[node name="KILL" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Coyote" to="." method="_on_Coyote_timeout"]
 [connection signal="timeout" from="Buffer" to="." method="_on_Buffer_timeout"]
+[connection signal="timeout" from="KILL" to="." method="_on_KILL_timeout"]

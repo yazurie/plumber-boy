@@ -301,3 +301,18 @@ func _on_Coyote_timeout():
 
 func _on_Timer5_timeout():
 	$Sprite.play("VICTORY")
+
+
+func _on_Bullet1_body_entered(body):
+	if body.is_in_group("players"):
+		set_modulate(Color(1,0.3,0.3,0.3))
+		velocity.y = JUMPFORCE * 0.8
+		
+		Input.action_release("left")
+		Input.action_release("right")
+		$KILL.start()
+		$Sprite.play("Fall")
+
+
+func _on_KILL_timeout():
+	get_tree().change_scene("res://Level1.tscn")
