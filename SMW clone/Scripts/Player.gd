@@ -14,7 +14,7 @@ var JUMPFORCE = -1230
 var GRAVITY = 40
 export var MAXSPEED = 450
 var sprint = 0
-var friction = 0.55
+var friction = 0.8
 var accel = 0.1
 onready var coyote = $Coyote
 var can_jump = true
@@ -22,7 +22,8 @@ var INPUT = true
 var ANIM = true
 var is_jumping = false
 var was_on_floor = is_on_floor()
-
+var runtime = 0
+var direction = 0
 
 func jump_cut():
 	if velocity.y < -600:
@@ -35,7 +36,6 @@ func input(delta):
 	if INPUT:
 		if Input.is_action_just_pressed("ui_accept"):
 			get_tree().change_scene("res://Level1.tscn")
-	
 		var timedict = OS.get_time()
 		var hour = timedict.hour;
 	
@@ -48,7 +48,8 @@ func input(delta):
 			if not is_on_floor():
 				$Buffer.start()
 		if Input.is_action_pressed("right"):
-			SPEED = 350	
+			SPEED = 350
+			direction = 1
 		if not Input.is_action_pressed("right") and SPEED > 0:
 			
 			SPEED = -50
@@ -58,21 +59,24 @@ func input(delta):
 			velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
 		if Input.is_action_pressed("left"):
 			SPEED = -350
+			direction = -1
 		if not Input.is_action_pressed("left") and SPEED < 0:
 			SPEED += 50
 		if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
 			sprint = 200
-			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.08)
+			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.05)
+			if velocity.x > 500:
+				print(velocity.x)
 		if Input.is_action_pressed("Run") and Input.is_action_pressed("left"):
 			sprint = -200
 			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
 			if velocity.x < -512:
 				velocity.x = -512
-			print (velocity.x)
 		if Input.is_action_pressed("Run") and not is_on_floor() and Input.is_action_pressed("right"):
 			if velocity.y > 0:
 				GRAVITY = 55
 			velocity.y = velocity.y + -5
+			SPEED = SPEED + 15
 		if Input.is_action_pressed("Run") and not Input.is_action_pressed("right"):
 			sprint = 0
 		if Input.is_action_pressed("Run") and not Input.is_action_pressed("left"):
@@ -104,31 +108,29 @@ func _physics_process(delta):
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
-	if velocity.x > 350:
+	print(friction)
+	if velocity.x > 450:
 		friction = -0.2
 	if is_on_ceiling():
 		velocity.y = 25
-	
 	if velocity.x > 0 and is_on_floor():
 		$Sprite.play("walk")
 	if not is_on_floor():
 		can_jump = false
-		$CollisionShape2D.shape.extents = Vector2(23, 36)
+		$CollisionShape2D.shape.extents = Vector2(23, 36.5)
 		if velocity.y > 0:
-			print(velocity.y)
 			GRAVITY = 55
 			$Sprite.play("Fall")
 		velocity.y += GRAVITY
 		friction = 0.4
 		coyote.start()
-	else:
-			$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
 	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
 	var was_on_floor = is_on_floor()
 	if is_on_floor():
 		velocity.y = 170
 		can_jump = true
-		$CollisionShape2D.shape.extents = Vector2(22, 33.382301)
+		$CollisionShape2D.shape.extents = Vector2(22, 34.2)
+		friction = 0.5
 	if GRAVITY < 40:
 		GRAVITY = 40
 	if not is_on_floor() and was_on_floor and not is_jumping:
@@ -160,25 +162,13 @@ func _on_Timer_timeout():
 	get_tree().change_scene("res://Level1.tscn")
 
 
-
-
-
-
-
-
-
 func _on_void_body_entered(body):
 	if body.is_in_group("players"):
 		get_tree().change_scene("res://Level1.tscn")
 
 
-
-
-
 onready var Coin1 = get_node("../Coin/Coin1")
 onready var BreakableBlock = get_node("../BreakableBlock/BreakableBlock1")
-
-
 
 
 func _on_Spike1_body_entered(body):
@@ -193,15 +183,9 @@ func _on_Spike1_body_entered(body):
 
 
 
-
-
-
-
 func _on_BreakableBlock1_body_entered(body):
 	if body.is_in_group("players"):
 		BreakableBlock.broke()
-
-
 
 
 
@@ -210,8 +194,8 @@ onready var Coin3 = get_node("../Coin/Coin3")
 onready var Coin6 = get_node("../Coin/Coin6")
 onready var Coin5 = get_node("../Coin/Coin5")
 onready var Coin4 = get_node("../Coin/Coin4")
-
-
+onready var Coin7 = get_node("../Coin/Coin7")
+onready var Coin8 = get_node("../Coin/Coin8")
 
 
 func _on_Coin1_body_entered(body):
@@ -243,7 +227,9 @@ func _on_Coin4_body_entered(body):
 	if body.is_in_group("players"):
 		Coin4.ded()
 
-
+func _on_Coin8_body_entered(body):
+	if body.is_in_group("players"):
+		Coin8.ded()
 
 
 
@@ -316,3 +302,11 @@ func _on_Bullet1_body_entered(body):
 
 func _on_KILL_timeout():
 	get_tree().change_scene("res://Level1.tscn")
+
+
+
+
+
+func _on_Coin7_body_entered(body):
+	if body.is_in_group("players"):
+		Coin7.ded()

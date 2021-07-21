@@ -4,25 +4,25 @@
 [ext_resource path="res://SOUNDS/smw_coin.wav" type="AudioStream" id=2]
 [ext_resource path="res://Coin.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.03818, 8.05245 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=2]
 region = Rect2( 44, 266, 22, 38 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 168, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 15 ) ],
+"frames": [ SubResource( 2 ) ],
 "loop": true,
 "name": "empty",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "default",
 "speed": 7.0
@@ -36,11 +36,11 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 14 )
+shape = SubResource( 1 )
 
 [node name="Coinsp" type="AnimatedSprite" parent="."]
 position = Vector2( -4.16111, 4.34453 )
-frames = SubResource( 17 )
+frames = SubResource( 4 )
 playing = true
 
 [node name="Coinsfx" type="AudioStreamPlayer" parent="."]

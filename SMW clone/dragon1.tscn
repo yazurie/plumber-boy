@@ -1,42 +1,49 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/enemy.gd" type="Script" id=1]
 [ext_resource path="res://SOUNDS/smw_stomp.wav" type="AudioStream" id=2]
 [ext_resource path="res://ASSETS/enemy/dragon walk1.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/enemy/dragon walk2.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/enemy/dragon squish.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/enemy/squish 1.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/enemy/squish walk.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/enemy/squishy rex.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 48.3417, 90.7032 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
 "name": "squish",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "squish2",
+"speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 64.469, 18.2443 )
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 66.0634, 44.0129 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6.74426, 55.3781 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 5.96106, 60.3672 )
 
 [node name="dragon1" type="KinematicBody2D"]
-position = Vector2( 2540.56, -354.159 )
+position = Vector2( 2539.06, -352.661 )
 scale = Vector2( 1.5, 1.5 )
 collision_layer = 16
 collision_mask = 35
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -237.837, 19.8484 )
@@ -45,8 +52,9 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -244.735, 10.263 )
 scale = Vector2( 2.2, 2.2 )
-frames = SubResource( 5 )
+frames = SubResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="floor_checker" type="RayCast2D" parent="."]
@@ -61,8 +69,8 @@ collision_layer = 16
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
-position = Vector2( -247.394, -73.5631 )
-shape = SubResource( 6 )
+position = Vector2( -242.643, -113.357 )
+shape = SubResource( 3 )
 
 [node name="sides_checker" type="Area2D" parent="."]
 position = Vector2( 90.0857, 8.05341 )
@@ -70,8 +78,15 @@ collision_layer = 0
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sides_checker"]
-position = Vector2( -333.86, -12.446 )
-shape = SubResource( 7 )
+position = Vector2( -415, -2.268 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="sides_checker"]
+position = Vector2( -246.721, -4.99438 )
+shape = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -79,6 +94,11 @@ one_shot = true
 [node name="Squish" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 
+[node name="side" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]
 [connection signal="body_entered" from="sides_checker" to="." method="_on_sides_checker_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="side" to="." method="_on_side_timeout"]
