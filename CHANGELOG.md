@@ -1,6 +1,26 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.0.3] - 2021-7-19
+
+### Added
+
+- added dragon enemy
+- added bullet enemy (i hate him)
+- physics tweaks again 
+- replaced most sprites with better ripped versions
+- camera changes to be more super mario worldy
+- goalpost is done and course clear screen is 90% done
+- backgrounds added
+
+
+## TO DO LIST CHANGES
+
+- goalpost done
+- backgrounds done
+
+
+
 ## [0.0.2] - 2021-7-12
 
 ### Added
@@ -37,5 +57,5 @@ All notable changes to this project will be documented in this file.
 - Variable gravity (DONE)
 - Make Koopas and Piranha Plants (IN PROGRESS)
 - Make Mushroom Powerup (IN PROGRESS)
-- Make Goalpost (NOT STARTED YET)
-- Backgrounds (NOT STARTED YET)
+- Make Goalpost (DONE)
+- Backgrounds (DONE)
