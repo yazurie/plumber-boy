@@ -25,13 +25,24 @@ var was_on_floor = is_on_floor()
 var runtime = 0
 var direction = 0
 
+onready var Coin2 = get_node("../Coin/Coin2")
+onready var Coin3 = get_node("../Coin/Coin3")
+onready var Coin6 = get_node("../Coin/Coin6")
+onready var Coin5 = get_node("../Coin/Coin5")
+onready var Coin4 = get_node("../Coin/Coin4")
+onready var Coin7 = get_node("../Coin/Coin7")
+onready var Coin8 = get_node("../Coin/Coin8")
+
+
+
+
 func jump_cut():
 	if velocity.y < -600:
 		velocity.y = -600
 	if velocity.y < -450:
 		velocity.y = -450
 
-
+	
 func input(delta):
 	if INPUT:
 		if Input.is_action_just_pressed("ui_accept"):
@@ -65,8 +76,6 @@ func input(delta):
 		if Input.is_action_pressed("Run") and Input.is_action_pressed("right"):
 			sprint = 200
 			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.05)
-			if velocity.x > 500:
-				print(velocity.x)
 		if Input.is_action_pressed("Run") and Input.is_action_pressed("left"):
 			sprint = -200
 			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
@@ -90,15 +99,22 @@ func Animation():
 		if Input.is_action_pressed("right"):
 			$Sprite.play("Walk")
 			$Sprite.flip_h = true
-			
+			if shroom == true:
+				$Sprite.play("bigwalk")
+				$Sprite.flip_h = true
 		if Input.is_action_pressed("left"):
 			$Sprite.play("Walk")
 			$Sprite.flip_h = false
+			if shroom == true:
+				$Sprite.play("bigwalk")
 		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
 			$Sprite.play("idle")
-			
+			if shroom == true:
+				$Sprite.play("bigidle")
 		if not is_on_floor():
 			$Sprite.play("Air")
+			if shroom == true:
+				$Sprite.play("bigair")
 		if Input.is_action_pressed("Run") and Input.is_action_pressed("right") and is_on_floor() or Input.is_action_pressed("Run") and Input.is_action_pressed("left") and is_on_floor():
 			$Sprite.set_speed_scale(2)
 		else:
@@ -108,7 +124,6 @@ func _physics_process(delta):
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
-	print(friction)
 	if velocity.x > 450:
 		friction = -0.2
 	if is_on_ceiling():
@@ -189,13 +204,7 @@ func _on_BreakableBlock1_body_entered(body):
 
 
 
-onready var Coin2 = get_node("../Coin/Coin2")
-onready var Coin3 = get_node("../Coin/Coin3")
-onready var Coin6 = get_node("../Coin/Coin6")
-onready var Coin5 = get_node("../Coin/Coin5")
-onready var Coin4 = get_node("../Coin/Coin4")
-onready var Coin7 = get_node("../Coin/Coin7")
-onready var Coin8 = get_node("../Coin/Coin8")
+
 
 
 func _on_Coin1_body_entered(body):
@@ -266,7 +275,7 @@ func _on_Area2D_body_entered(body):
 		
 
 func _on_Timer2_timeout():
-	get_tree().change_scene("res://Level1.tscn")
+	get_tree().change_scene("res://Level2.tscn")
 
 
 func _on_Timer3_timeout():
@@ -310,3 +319,6 @@ func _on_KILL_timeout():
 func _on_Coin7_body_entered(body):
 	if body.is_in_group("players"):
 		Coin7.ded()
+
+
+

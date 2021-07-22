@@ -4,22 +4,23 @@
 [ext_resource path="res://SOUNDS/smw_stomp.wav" type="AudioStream" id=2]
 [ext_resource path="res://ASSETS/NES - Super Mario Bros - Enemies & Bosses.png" type="Texture" id=3]
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
 var speed = 250
 var velocity = Vector2()
 export var direction = -1
+var active = false
 
 func _physics_process(delta):
 	
-	
-	
-	velocity.x = speed * direction
-	
-	
-	velocity = move_and_slide(velocity,Vector2.UP)
-	
+	if active == true:
+		
+		
+		velocity.x = speed * direction
+		
+		velocity = move_and_slide(velocity,Vector2.UP)
+		
 	
 
 
@@ -54,6 +55,15 @@ func _on_Timer_timeout():
 	queue_free()
 
 
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()
+	active = false
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	active = true
 "
 
 [sub_resource type="AtlasTexture" id=2]
@@ -76,7 +86,7 @@ flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 18, 22, 18, 22 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ SubResource( 2 ) ],
 "loop": false,
@@ -94,7 +104,7 @@ position = Vector2( 1846.3, -244.907 )
 scale = Vector2( 1.7, 1.7 )
 collision_layer = 16
 collision_mask = 35
-script = SubResource( 6 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -102,7 +112,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.222725, 0.8909 )
 scale = Vector2( 2, 2.0405 )
-frames = SubResource( 7 )
+frames = SubResource( 6 )
 animation = "walk"
 
 [node name="floor_checker" type="RayCast2D" parent="."]
@@ -126,7 +136,7 @@ collision_mask = 33
 polygon = PoolVector2Array( -136.678, -330.578, -305.552, -250.717, -367.944, -189.989, -409.538, -84.3387, -418.689, -33.5934, -418.689, 47.9319, -391.237, 123.634, -347.979, 203.495, -298.897, 254.241, -214.876, 299.995, -129.191, 329.111, 34.691, 327.447, 34.691, 288.348, 76.2854, 290.012, 77.1176, 326.615, 241, 328.279, 238.504, -338.897, -28.5327, -95.1533 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.14
+wait_time = 0.3
 one_shot = true
 
 [node name="Squish" type="AudioStreamPlayer" parent="."]
@@ -135,6 +145,12 @@ stream = ExtResource( 2 )
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -49.9203, -317.533, -287.009, -139.509, -305.311, -77.1171, -321.948, 27.7011, -262.884, 174.114, -164.851, 277.592, -71.4276, 313.728, 111.895, 323.423, 113.962, 261.067, 182.09, 267.355, 184.186, 330.242, 323.585, 330.242, 320.441, -324.83, 175.801, -319.59, 174.753, -287.098, 117.107, -276.617, 109.77, -324.83 )
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 1.04349, 2.68183 )
+scale = Vector2( 32.968, 33.4453 )
+
 [connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]
 [connection signal="body_entered" from="sides_checker" to="." method="_on_sides_checker_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

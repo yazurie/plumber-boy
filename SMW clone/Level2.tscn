@@ -1,33 +1,33 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
-[ext_resource path="res://ASSETS/blocks/dirt bottom.png" type="Texture" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://slope.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ASSETS/y2mate.com - Super Mario World  Overworld Theme Music FULL VERSION.ogg" type="AudioStream" id=4]
-[ext_resource path="res://ASSETS/Bush.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/void.gd" type="Script" id=6]
-[ext_resource path="res://Coin1.tscn" type="PackedScene" id=7]
-[ext_resource path="res://enemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://ASSETS/Screenshot_12.png" type="Texture" id=9]
-[ext_resource path="res://dragon1.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Spike1.tscn" type="PackedScene" id=11]
-[ext_resource path="res://fonts/SuperMarioBros-ov7d.ttf" type="DynamicFontData" id=12]
-[ext_resource path="res://ASSETS/blocks/blue brick.png" type="Texture" id=13]
-[ext_resource path="res://ASSETS/blocks/breakableblock.png" type="Texture" id=14]
-[ext_resource path="res://ASSETS/blocks/alt slope.png" type="Texture" id=15]
-[ext_resource path="res://ASSETS/blocks/blue block v2.png" type="Texture" id=16]
-[ext_resource path="res://ASSETS/blocks/blue block.png" type="Texture" id=17]
-[ext_resource path="res://ASSETS/blocks/dirt top.png" type="Texture" id=18]
-[ext_resource path="res://ASSETS/Screenshot_9 - Copy.png" type="Texture" id=19]
-[ext_resource path="res://GOALPOST.gd" type="Script" id=20]
-[ext_resource path="res://ASSETS/Screenshot_11.png" type="Texture" id=21]
-[ext_resource path="res://SOUNDS/smw_goal_iris-out.wav" type="AudioStream" id=22]
-[ext_resource path="res://SOUNDS/y2mate.com - Course Clear  Super Mario World.ogg" type="AudioStream" id=23]
-[ext_resource path="res://BULLET.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Pipe.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Slopipe.tscn" type="PackedScene" id=26]
-[ext_resource path="res://ASSETS/blocks/side.png" type="Texture" id=27]
-[ext_resource path="res://ASSETS/blocks/smol tile.png" type="Texture" id=28]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Pipe.tscn" type="PackedScene" id=2]
+[ext_resource path="res://dragon1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Slopipe.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Coin1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://BULLET.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Spike1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://slope.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ASSETS/blocks/alt slope.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/blocks/blue block.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/blocks/blue block v2.png" type="Texture" id=12]
+[ext_resource path="res://GOALPOST.gd" type="Script" id=13]
+[ext_resource path="res://fonts/SuperMarioBros-ov7d.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://ASSETS/y2mate.com - Super Mario World  Overworld Theme Music FULL VERSION.ogg" type="AudioStream" id=18]
+[ext_resource path="res://ASSETS/Bush.png" type="Texture" id=19]
+[ext_resource path="res://ASSETS/blocks/dirt bottom.png" type="Texture" id=20]
+[ext_resource path="res://ASSETS/Screenshot_12.png" type="Texture" id=21]
+[ext_resource path="res://ASSETS/blocks/blue brick.png" type="Texture" id=22]
+[ext_resource path="res://ASSETS/blocks/breakableblock.png" type="Texture" id=23]
+[ext_resource path="res://Scripts/void.gd" type="Script" id=24]
+[ext_resource path="res://ASSETS/Screenshot_9 - Copy.png" type="Texture" id=25]
+[ext_resource path="res://ASSETS/blocks/side.png" type="Texture" id=26]
+[ext_resource path="res://SOUNDS/smw_goal_iris-out.wav" type="AudioStream" id=27]
+[ext_resource path="res://ASSETS/Screenshot_11.png" type="Texture" id=28]
+[ext_resource path="res://SOUNDS/y2mate.com - Course Clear  Super Mario World.ogg" type="AudioStream" id=29]
+[ext_resource path="res://ASSETS/blocks/dirt top.png" type="Texture" id=30]
+[ext_resource path="res://ASSETS/blocks/smol tile.png" type="Texture" id=31]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 69, 65, 0, 65, 0, 0, 69, 0 )
@@ -70,7 +70,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 
 [sub_resource type="TileSet" id=14]
 0/name = "dirt top.png 0"
-0/texture = ExtResource( 18 )
+0/texture = ExtResource( 30 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 1, 0, 69, 65 )
@@ -91,7 +91,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 0/z_index = 0
 1/name = "dirt bottom.png 1"
-1/texture = ExtResource( 1 )
+1/texture = ExtResource( 20 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 1, 1, 69, 64 )
@@ -112,7 +112,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 1/z_index = 0
 2/name = "breakableblock.png 2"
-2/texture = ExtResource( 14 )
+2/texture = ExtResource( 23 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, -1, 69, 71 )
@@ -133,7 +133,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 2/z_index = 0
 3/name = "blue brick.png 3"
-3/texture = ExtResource( 13 )
+3/texture = ExtResource( 22 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 1, 69, 64 )
@@ -154,7 +154,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 3/z_index = 0
 4/name = "blue block.png 4"
-4/texture = ExtResource( 17 )
+4/texture = ExtResource( 11 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 71, 72 )
@@ -175,7 +175,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 4/z_index = 0
 6/name = "alt slope.png 6"
-6/texture = ExtResource( 15 )
+6/texture = ExtResource( 10 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 1, 0, 80, 87 )
@@ -196,7 +196,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 6/z_index = 0
 7/name = "alt slope.png 7"
-7/texture = ExtResource( 15 )
+7/texture = ExtResource( 10 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 1, 0, 0, 0 )
@@ -210,7 +210,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 7/shapes = [  ]
 7/z_index = 0
 8/name = "blue block v2.png 8"
-8/texture = ExtResource( 16 )
+8/texture = ExtResource( 12 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 1, 0, 69, 72 )
@@ -231,7 +231,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 8/z_index = 0
 9/name = "dirt top.png 9"
-9/texture = ExtResource( 18 )
+9/texture = ExtResource( 30 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 1, 1, 69, 64 )
@@ -252,7 +252,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 9/z_index = 0
 10/name = "blue block v2.png 10"
-10/texture = ExtResource( 16 )
+10/texture = ExtResource( 12 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 1, 0, 69, 69 )
@@ -273,7 +273,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 10/z_index = 0
 11/name = "blue block v2.png 11"
-11/texture = ExtResource( 16 )
+11/texture = ExtResource( 12 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 1, 0, 69, 62 )
@@ -294,7 +294,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 11/z_index = 0
 12/name = "alt slope.png 12"
-12/texture = ExtResource( 15 )
+12/texture = ExtResource( 10 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 1, 0, 80, 87 )
@@ -315,7 +315,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 12/z_index = 0
 13/name = "blue block v2.png 13"
-13/texture = ExtResource( 16 )
+13/texture = ExtResource( 12 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 1, 0, 69, 62 )
@@ -329,7 +329,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 13/shapes = [  ]
 13/z_index = 0
 14/name = "side.png 14"
-14/texture = ExtResource( 27 )
+14/texture = ExtResource( 26 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 0, 0, 29, 81 )
@@ -350,7 +350,7 @@ points = PoolVector2Array( 69, 64, 0.466888, 64, 0.466888, 0.143879, 69, 0.14387
 } ]
 14/z_index = 0
 15/name = "smol tile.png 15"
-15/texture = ExtResource( 28 )
+15/texture = ExtResource( 31 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 0, 0, 26, 19 )
@@ -379,14 +379,154 @@ extents = Vector2( 73.2168, 457.081 )
 
 [sub_resource type="RectangleShape2D" id=17]
 
-[sub_resource type="DynamicFont" id=18]
-outline_color = Color( 0.843137, 0.00784314, 0.00784314, 1 )
-font_data = ExtResource( 12 )
+[sub_resource type="GDScript" id=18]
+script/source = "extends KinematicBody2D
 
-[sub_resource type="RectangleShape2D" id=19]
+var speed = 100
+var velocity = Vector2()
+export var direction = -1
+var active
+
+func _ready():
+	if active == true:
+		if direction == 1:
+			$AnimatedSprite.flip_h = true
+		$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * direction 
+		$AnimatedSprite.play(\"walk\")
+
+
+func _physics_process(delta):
+	if active == true:
+		if is_on_wall() or not $floor_checker.is_colliding() and is_on_floor():
+			direction = direction * -1
+			$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
+			$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * direction  
+
+	
+	
+		velocity.y += 20
+	
+		velocity.x = speed * direction
+	
+	
+		velocity = move_and_slide(velocity,Vector2.UP)
+	
+	
+
+
+
+
+
+
+func _on_top_checker_body_entered(body):
+	if body.is_in_group(\"players\"):
+		$CollisionShape2D.disabled = true
+		$AnimatedSprite.play(\"squish\")
+		speed = 0
+		set_collision_layer_bit(4,false)
+		set_collision_mask_bit(0,false)
+		$top_checker.set_collision_layer_bit(4,false)
+		$top_checker.set_collision_mask_bit(0,false)
+		$sides_checker.set_collision_layer_bit(4,false)
+		$sides_checker.set_collision_mask_bit(0,false)
+		$Timer.start()
+		body.bounce()
+		$Squish.play()
+		
+	
+	
+	
+	
+func _on_sides_checker_body_entered(body):
+	if body.is_in_group(\"players\"):
+		print (\"ouch\")
+		$CollisionShape2D.disabled = true
+		body.ouch(position.x)
+
+func _on_Timer_timeout():
+	queue_free()
+
+
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	active = false
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	active = true
+"
+
+[sub_resource type="DynamicFont" id=19]
+outline_color = Color( 0.843137, 0.00784314, 0.00784314, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 20.1598, 19.5821 )
 
-[node name="Level1" type="Node2D"]
+[sub_resource type="GDScript" id=21]
+script/source = "extends KinematicBody2D
+
+var speed = 250
+var velocity = Vector2()
+export var direction = -1
+var active = false
+
+func _physics_process(delta):
+	
+	if active == true:
+		
+		
+		velocity.x = speed * direction
+		
+		velocity = move_and_slide(velocity,Vector2.UP)
+		
+	
+
+
+
+
+
+
+func _on_top_checker_body_entered(body):
+	if body.is_in_group(\"players\"):
+		$Collision.disabled = true
+		speed = 0
+		set_collision_layer_bit(4,false)
+		set_collision_mask_bit(0,false)
+		$top_checker.set_collision_layer_bit(4,false)
+		$top_checker.set_collision_mask_bit(0,false)
+		$sides_checker.set_collision_layer_bit(4,false)
+		$sides_checker.set_collision_mask_bit(0,false)
+		$Timer.start()
+		body.bounce()
+		$Squish.play()
+	
+	
+	
+	
+func _on_sides_checker_body_entered(body):
+	if body.is_in_group(\"players\"):
+		print (\"ouch\")
+		$Collision.disabled = true
+		body.ouch(position.x)
+
+func _on_Timer_timeout():
+	queue_free()
+
+
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()
+	active = false
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	active = true
+"
+
+[node name="Level2" type="Node2D"]
 __meta__ = {
 "_edit_vertical_guides_": [ 8730.17 ]
 }
@@ -396,7 +536,7 @@ margin_left = -684.288
 margin_top = -2805.74
 margin_right = 999316.0
 margin_bottom = 7194.26
-color = Color( 0.0117647, 0.490196, 0.54902, 1 )
+color = Color( 0.027451, 0.027451, 0.027451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -408,97 +548,97 @@ scale = Vector2( 1.5, 1.5 )
 [node name="Screenshot_9 - Copy" type="Sprite" parent="Background"]
 position = Vector2( 1337.03, -494.064 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy2" type="Sprite" parent="Background"]
 position = Vector2( 2161.02, -488.071 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy5" type="Sprite" parent="Background"]
 position = Vector2( 4629.63, -476.474 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy6" type="Sprite" parent="Background"]
 position = Vector2( 5452.07, -470.366 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy7" type="Sprite" parent="Background"]
 position = Vector2( 6278.83, -470.074 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy8" type="Sprite" parent="Background"]
 position = Vector2( 7103.04, -470.46 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy9" type="Sprite" parent="Background"]
 position = Vector2( 7926.39, -471.041 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy4" type="Sprite" parent="Background"]
 position = Vector2( 3804.36, -479.248 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy3" type="Sprite" parent="Background"]
 position = Vector2( 2983.57, -483.003 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy10" type="Sprite" parent="Background"]
 position = Vector2( 8748.56, -473.499 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy11" type="Sprite" parent="Background"]
 position = Vector2( 9571.88, -468.623 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy12" type="Sprite" parent="Background"]
 position = Vector2( 10396.2, -469.149 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy13" type="Sprite" parent="Background"]
 position = Vector2( 11230.7, -472.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy14" type="Sprite" parent="Background"]
 position = Vector2( 12050.7, -468.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy15" type="Sprite" parent="Background"]
 position = Vector2( 12876.7, -466.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy16" type="Sprite" parent="Background"]
 position = Vector2( 13703.2, -466.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy17" type="Sprite" parent="Background"]
 position = Vector2( 14532.3, -466.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy18" type="Sprite" parent="Background"]
 position = Vector2( 15361.3, -466.414 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Screenshot_9 - Copy19" type="Sprite" parent="Background"]
 position = Vector2( 16119.6, -404.889 )
 scale = Vector2( 1.27394, 1.10948 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 14 )
@@ -509,51 +649,51 @@ tile_data = PoolIntArray( -1507011, 9, 0, -1507009, 9, 0, -1507007, 9, 0, -15070
 [node name="Bush" type="Sprite" parent="."]
 position = Vector2( 502.481, 1491.62 )
 scale = Vector2( 5, 5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 19 )
 
 [node name="Bush2" type="Sprite" parent="."]
 position = Vector2( 4679.02, -403.997 )
 scale = Vector2( 5, 5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 19 )
 
 [node name="slopes" type="Node2D" parent="."]
 
-[node name="StaticBody2D" parent="slopes" instance=ExtResource( 3 )]
+[node name="StaticBody2D" parent="slopes" instance=ExtResource( 8 )]
 position = Vector2( 2594.94, -368.58 )
 scale = Vector2( 2, 2 )
 
-[node name="StaticBody2D4" parent="slopes" instance=ExtResource( 3 )]
+[node name="StaticBody2D4" parent="slopes" instance=ExtResource( 8 )]
 position = Vector2( 6000, -369.972 )
 scale = Vector2( 2, 2 )
 
-[node name="StaticBody2D3" parent="slopes" instance=ExtResource( 3 )]
+[node name="StaticBody2D3" parent="slopes" instance=ExtResource( 8 )]
 position = Vector2( 5700, -370.468 )
 scale = Vector2( 2, 2 )
 
-[node name="StaticBody2D2" parent="slopes" instance=ExtResource( 3 )]
+[node name="StaticBody2D2" parent="slopes" instance=ExtResource( 8 )]
 position = Vector2( 5400, -368.58 )
 scale = Vector2( 2, 2 )
 
 [node name="Spikes" type="Node2D" parent="."]
 
-[node name="Spike1" parent="Spikes" instance=ExtResource( 11 )]
+[node name="Spike1" parent="Spikes" instance=ExtResource( 7 )]
 position = Vector2( 480.43, 1538.35 )
 scale = Vector2( 0.36, 0.36 )
 
-[node name="Spike3" parent="Spikes" instance=ExtResource( 11 )]
+[node name="Spike3" parent="Spikes" instance=ExtResource( 7 )]
 position = Vector2( 480.43, 1538.35 )
 scale = Vector2( 0.36, 0.36 )
 
-[node name="Spike4" parent="Spikes" instance=ExtResource( 11 )]
+[node name="Spike4" parent="Spikes" instance=ExtResource( 7 )]
 position = Vector2( 480.43, 1538.35 )
 scale = Vector2( 0.36, 0.36 )
 
-[node name="Spike5" parent="Spikes" instance=ExtResource( 11 )]
+[node name="Spike5" parent="Spikes" instance=ExtResource( 7 )]
 position = Vector2( 6285.28, 1471.72 )
 rotation = 1.5708
 scale = Vector2( 0.3, 0.1 )
 
-[node name="Spike2" parent="Spikes" instance=ExtResource( 11 )]
+[node name="Spike2" parent="Spikes" instance=ExtResource( 7 )]
 position = Vector2( 3259.58, 1115.91 )
 rotation = 1.5708
 scale = Vector2( 0.3, 0.6 )
@@ -566,7 +706,7 @@ __meta__ = {
 
 [node name="Area2D" type="Area2D" parent="GOALPOST"]
 position = Vector2( 16111.4, -426.433 )
-script = ExtResource( 20 )
+script = ExtResource( 13 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -577,16 +717,16 @@ one_shot = true
 
 [node name="CourseClear" type="AudioStreamPlayer" parent="GOALPOST/Area2D"]
 pause_mode = 1
-stream = ExtResource( 23 )
+stream = ExtResource( 29 )
 volume_db = -4.0
 
 [node name="IMOUT" type="AudioStreamPlayer" parent="GOALPOST/Area2D"]
-stream = ExtResource( 22 )
+stream = ExtResource( 27 )
 volume_db = 10.0
 
 [node name="Sprite" type="Sprite" parent="GOALPOST/Area2D"]
 position = Vector2( 0, 17.9336 )
-texture = ExtResource( 21 )
+texture = ExtResource( 28 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GOALPOST/Area2D"]
 position = Vector2( -1.94617, 176.806 )
@@ -609,18 +749,18 @@ position = Vector2( 16107.5, -807.506 )
 scale = Vector2( 1, 1.1 )
 shape = SubResource( 16 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2154.03, -229.652 )
+[node name="Player" parent="." instance=ExtResource( 9 )]
+position = Vector2( 2016.73, -247.567 )
 
 [node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 18 )
 volume_db = -6.059
 autoplay = true
 
 [node name="void" type="Area2D" parent="."]
 position = Vector2( -82.3496, 1216.54 )
 scale = Vector2( 50, 1 )
-script = ExtResource( 6 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -632,55 +772,61 @@ shape = SubResource( 17 )
 [node name="GOOMBA" type="Node2D" parent="."]
 position = Vector2( 3569.85, -399.155 )
 
-[node name="enemy" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 2605.55, 90.2035 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
-[node name="enemy2" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy2" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 2824.72, 160.835 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
-[node name="enemy3" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy3" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 5215.78, 169.619 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
-[node name="enemy4" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy4" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 10764.8, 154.644 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
-[node name="enemy5" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy5" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 9161.02, 291.418 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
-[node name="enemy6" parent="GOOMBA" instance=ExtResource( 8 )]
+[node name="enemy6" parent="GOOMBA" instance=ExtResource( 1 )]
 position = Vector2( 7913.22, 302.744 )
 scale = Vector2( 1.5, 1.5 )
+script = SubResource( 18 )
 
 [node name="Coin" type="Node2D" parent="."]
 scale = Vector2( 3, 3 )
 
-[node name="Coin1" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin1" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 4832.51, -141.834 )
 
-[node name="Coin2" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin2" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 1514.98, -138.469 )
 
-[node name="Coin7" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin7" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 1514.98, -138.469 )
 
-[node name="Coin8" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin8" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 2018.31, -169.136 )
 
-[node name="Coin3" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin3" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 1152.42, -131.587 )
 
-[node name="Coin6" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin6" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 3045.06, -72.7877 )
 
-[node name="Coin5" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin5" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 2318.76, -70.7135 )
 
-[node name="Coin4" parent="Coin" instance=ExtResource( 7 )]
+[node name="Coin4" parent="Coin" instance=ExtResource( 5 )]
 position = Vector2( 874.766, -200.538 )
 
 [node name="LABELS" type="Node2D" parent="."]
@@ -692,7 +838,7 @@ margin_top = -484.849
 margin_right = 16770.1
 margin_bottom = 9.15094
 rect_scale = Vector2( 5, 5 )
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "course clear!
 "
 __meta__ = {
@@ -720,10 +866,10 @@ __meta__ = {
 
 [node name="Label3" type="Label" parent="LABELS"]
 modulate = Color( 0, 0, 0, 1 )
-margin_left = 2324.37
-margin_top = -324.966
-margin_right = 2882.37
-margin_bottom = -83.9646
+margin_left = 1619.56
+margin_top = 138.555
+margin_right = 2177.56
+margin_bottom = 379.556
 rect_scale = Vector2( 3, 3 )
 text = "PRESS C TO SPRINT"
 uppercase = true
@@ -740,52 +886,52 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mushrooms/Mushroom1"]
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 
 [node name="Sprite" type="Sprite" parent="Mushrooms/Mushroom1"]
-texture = ExtResource( 9 )
+texture = ExtResource( 21 )
 
 [node name="BULLETS" type="Node2D" parent="."]
 scale = Vector2( 0.7, 0.7 )
 
-[node name="BULLET" parent="BULLETS" instance=ExtResource( 24 )]
+[node name="BULLET" parent="BULLETS" instance=ExtResource( 6 )]
 position = Vector2( 4944.19, -392.859 )
 scale = Vector2( 0.35, 0.35 )
+script = SubResource( 21 )
 
-[node name="BULLET2" parent="BULLETS" instance=ExtResource( 24 )]
+[node name="BULLET2" parent="BULLETS" instance=ExtResource( 6 )]
 position = Vector2( 18800.3, -412.688 )
 scale = Vector2( 0.35, 0.35 )
+script = SubResource( 21 )
 
 [node name="dragon" type="Node2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 
-[node name="dragon1" parent="dragon" instance=ExtResource( 10 )]
+[node name="dragon1" parent="dragon" instance=ExtResource( 3 )]
 position = Vector2( 5338.5, -498.505 )
 scale = Vector2( 1, 1 )
 
-[node name="dragon2" parent="dragon" instance=ExtResource( 10 )]
+[node name="dragon2" parent="dragon" instance=ExtResource( 3 )]
 position = Vector2( 19293.2, -506.163 )
-scale = Vector2( 1, 1 )
 
-[node name="dragon3" parent="dragon" instance=ExtResource( 10 )]
+[node name="dragon3" parent="dragon" instance=ExtResource( 3 )]
 position = Vector2( 24737.4, -494.837 )
-scale = Vector2( 1, 1 )
 
 [node name="Pipes" type="Node2D" parent="."]
 
-[node name="Slopipe" parent="Pipes" instance=ExtResource( 26 )]
+[node name="Slopipe" parent="Pipes" instance=ExtResource( 4 )]
 position = Vector2( 3909.72, -442.557 )
 scale = Vector2( 1.35, 1.35 )
 
-[node name="Slopipe2" parent="Pipes" instance=ExtResource( 26 )]
+[node name="Slopipe2" parent="Pipes" instance=ExtResource( 4 )]
 position = Vector2( 7286.91, -442.557 )
 scale = Vector2( 1.35, 1.35 )
 
-[node name="Pipe" parent="Pipes" instance=ExtResource( 25 )]
+[node name="Pipe" parent="Pipes" instance=ExtResource( 2 )]
 position = Vector2( 6643.74, -295.422 )
 scale = Vector2( 4.5, 4.5 )
 
-[node name="Pipe2" parent="Pipes" instance=ExtResource( 25 )]
+[node name="Pipe2" parent="Pipes" instance=ExtResource( 2 )]
 position = Vector2( 8172.82, -293.534 )
 scale = Vector2( 4.5, 4.5 )
 
