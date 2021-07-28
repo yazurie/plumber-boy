@@ -24,7 +24,7 @@ var is_jumping = false
 var was_on_floor = is_on_floor()
 var runtime = 0
 var direction = 0
-
+var shroom = true
 onready var Coin2 = get_node("../Coin/Coin2")
 onready var Coin3 = get_node("../Coin/Coin3")
 onready var Coin6 = get_node("../Coin/Coin6")

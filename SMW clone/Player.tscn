@@ -83,7 +83,7 @@ func input(delta):
 			if not is_on_floor():
 				$Buffer.start()
 		if Input.is_action_pressed(\"right\"):
-			SPEED = 350
+			SPEED = 400
 			direction = 1
 		if not Input.is_action_pressed(\"right\") and SPEED > 0:
 			
@@ -93,7 +93,7 @@ func input(delta):
 			jump_cut()
 			velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
 		if Input.is_action_pressed(\"left\"):
-			SPEED = -350
+			SPEED = -400
 			direction = -1
 		if not Input.is_action_pressed(\"left\") and SPEED < 0:
 			SPEED += 50
@@ -256,7 +256,7 @@ func _on_Coin8_body_entered(body):
 		Coin8.ded()
 
 
-
+#GOALPOST START
 
 onready var Timer2 = get_node(\"../GOALPOST/Area2D/Timer2\")
 onready var CourseClear = get_node(\"../GOALPOST/Area2D/CourseClear\")
@@ -276,7 +276,6 @@ func _on_Area2D_body_entered(body):
 		clear.visible = true
 		INPUT = false
 		ANIM = false
-		background.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
 		tiles.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
 		coloor.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
 		goal.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
@@ -295,7 +294,7 @@ func _on_Timer2_timeout():
 
 func _on_Timer3_timeout():
 	IMOUT.play()
-	set_modulate(lerp(get_modulate(), Color(0,0,0,0.5), 1))
+	set_modulate(lerp(get_modulate(), Color(0,0,0,5), 1))
 
 
 func _on_Timer4_timeout():
@@ -311,6 +310,8 @@ func _on_Coyote_timeout():
 
 func _on_Timer5_timeout():
 	$Sprite.play(\"VICTORY\")
+
+#GOALPOST DONE
 
 
 func _on_Bullet1_body_entered(body):
@@ -337,6 +338,13 @@ func _on_Coin7_body_entered(body):
 
 
 
+onready var pipecol = get_node(\"../Pipes/Pipe/CollisionShape2D\")
+onready var pipecoltop = get_node(\"../Pipes/Pipe/top/CollisionShape2D\")
+#Pipe function
+func _on_top_body_entered(body):
+	if body.is_in_group(\"players\"):
+		position.x = 4742.259
+		position.y = 644.24
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -344,23 +352,23 @@ extents = Vector2( 22.3913, 33.3823 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 60, 65 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 55, 80 )
 
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 66, 84 )
-
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 57, 77 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 60, 65 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 66, 84 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
@@ -374,29 +382,39 @@ animations = [ {
 "name": "brake",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 20 ) ],
-"loop": true,
-"name": "bigduck",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "bigvictory",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ) ],
-"loop": false,
-"name": "Fall",
+"loop": true,
+"name": "death",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "bigair",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "Air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Run",
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ) ],
 "loop": true,
 "name": "bigwalk",
 "speed": 8.0
 }, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ ExtResource( 17 ) ],
 "loop": true,
-"name": "death",
+"name": "biglookup",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
@@ -405,39 +423,29 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "VICTORY",
+"loop": false,
+"name": "Fall",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ) ],
+"frames": [ ExtResource( 20 ) ],
 "loop": true,
-"name": "Air",
+"name": "bigduck",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "biglookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "Run",
-"speed": 12.0
+"name": "Walk",
+"speed": 9.0
 }, {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "bigidle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
-"name": "bigair",
+"name": "VICTORY",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 7.0
 } ]
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -445,9 +453,6 @@ animations = [ {
 ]]
 position = Vector2( 4.82239, 12.2789 )
 script = SubResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
@@ -458,14 +463,13 @@ animation = "Walk"
 playing = true
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2( -0.996692, -294.475 )
+position = Vector2( 0.891003, 3.789 )
 scale = Vector2( 0.8, 0.8 )
 current = true
-zoom = Vector2( 0.75, 0.75 )
-limit_top = -700
-limit_bottom = 276447232
+zoom = Vector2( 3, 3 )
+limit_top = -650
+limit_bottom = 400
 drag_margin_v_enabled = true
-offset_v = 1.0
 script = ExtResource( 5 )
 
 [node name="Jumpsfx" type="AudioStreamPlayer" parent="."]
