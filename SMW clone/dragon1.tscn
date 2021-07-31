@@ -18,25 +18,25 @@ animations = [ {
 "name": "squish",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "squish2",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "squish2",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 68.7498, 7.87842 )
+extents = Vector2( 84.731, 7.87842 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 6.74426, 55.3781 )
+extents = Vector2( 2.4364, 55.3781 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 5.96106, 60.3672 )
+extents = Vector2( 2.02771, 60.3672 )
 
 [node name="dragon1" type="KinematicBody2D"]
 position = Vector2( 2539.06, -352.661 )
@@ -44,6 +44,9 @@ scale = Vector2( 1.5, 1.5 )
 collision_layer = 16
 collision_mask = 35
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -237.837, 19.8484 )
@@ -78,11 +81,11 @@ collision_layer = 0
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sides_checker"]
-position = Vector2( -415, -2.268 )
+position = Vector2( -399.018, -2.268 )
 shape = SubResource( 4 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="sides_checker"]
-position = Vector2( -246.721, -4.99438 )
+position = Vector2( -273.691, -7.99098 )
 shape = SubResource( 5 )
 __meta__ = {
 "_edit_group_": true

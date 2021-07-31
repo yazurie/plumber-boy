@@ -43,7 +43,9 @@ animations = [ {
 "speed": 7.0
 } ]
 
-[node name="Coin1" type="Area2D"]
+[node name="Coin1" type="Area2D" groups=[
+"coins",
+]]
 position = Vector2( 1.47157, -3.15336 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -67,4 +69,5 @@ volume_db = 5.826
 wait_time = 0.202
 one_shot = true
 
+[connection signal="body_entered" from="." to="." method="_on_Coin1_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
