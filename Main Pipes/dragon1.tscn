@@ -13,6 +13,11 @@ extents = Vector2( 48.3417, 90.7032 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "squish2",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "squish",
@@ -21,11 +26,6 @@ animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "squish2",
 "speed": 5.0
 } ]
 
@@ -72,7 +72,7 @@ collision_layer = 16
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
-position = Vector2( -244.64, -149.316 )
+position = Vector2( -243.934, -101.993 )
 shape = SubResource( 3 )
 
 [node name="sides_checker" type="Area2D" parent="."]
@@ -98,7 +98,7 @@ one_shot = true
 stream = ExtResource( 2 )
 
 [node name="side" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
 one_shot = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

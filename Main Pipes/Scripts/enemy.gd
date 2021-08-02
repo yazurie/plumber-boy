@@ -70,7 +70,7 @@ func _on_sides_checker_body_entered(body):
 	if body.is_in_group("players"):
 		print ("ouch")
 		body.ouch(position.x)
-
+		$top_checker/CollisionShape2D.disabled = true
 func _on_Timer_timeout():
 	queue_free()
 

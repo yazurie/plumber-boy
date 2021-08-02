@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://SOUNDS/smw_pipe.wav" type="AudioStream" id=1]
 [ext_resource path="res://ASSETS/y2mate.com - Super Mario World  Jump Sound Effect.ogg" type="AudioStream" id=2]
@@ -21,7 +21,7 @@
 [ext_resource path="res://ASSETS/mario/big idle.png" type="Texture" id=19]
 [ext_resource path="res://ASSETS/mario/big duck.png" type="Texture" id=20]
 [ext_resource path="res://ASSETS/mario/big walk1.png" type="Texture" id=21]
-[ext_resource path="res://ASSETS/Yoshi/82 96.png" type="Texture" id=22]
+[ext_resource path="res://ASSETS/Yoshi/82 97.png" type="Texture" id=25]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
@@ -52,22 +52,31 @@ var runtime = 0
 var direction = 0
 var goals = 0
 var shroom = false
+var run = false
 onready var shrooom = get_node(\"../Mushrooms/Mushroom1\")
-
-
+onready var player = get_node(\"../Player\")
+onready var collision = get_node(\"CollisionShape2D\")
+onready var sprite = get_node(\"Sprite\")
+onready var bigco = get_node(\"bigco\")
+onready var kill = get_node(\"KILL\")
+onready var jumpsfx = get_node(\"Jumpsfx\")
+onready var pipesfx = get_node(\"pipesfx\")
+onready var buffer = get_node(\"Buffer\")
+onready var pipe = get_node(\"pipe\")
+onready var timer = get_node(\"Timer\")
 func _on_Mushroom1_body_entered(body):
 	if body.is_in_group(\"players\"):
 		print(shroom)
 		shroom = true
 		shrooom.queue_free()
-		$pipesfx.play()
-		
+		pipesfx.play()
+		player.scale.x = 1.15
+		player.scale.y = 1.15
 func jump_cut():
 	if velocity.y < -600:
 		velocity.y = -600
 	if velocity.y < -450:
 		velocity.y = -450
-
 	
 func input(delta):
 	if INPUT:
@@ -75,15 +84,13 @@ func input(delta):
 			get_tree().change_scene(\"res://Level1.tscn\")
 		var timedict = OS.get_time()
 		var hour = timedict.hour;
-	
-	
 		if Input.is_action_just_pressed(\"jump\"):
 			if can_jump:
 				is_jumping = true
 				velocity.y = JUMPFORCE + GRAVITY
-				$Jumpsfx.play()
+				jumpsfx.play()
 			if not is_on_floor():
-				$Buffer.start()
+				buffer.start()
 		if Input.is_action_pressed(\"right\"):
 			SPEED = 400
 			direction = 1
@@ -100,81 +107,90 @@ func input(delta):
 		if not Input.is_action_pressed(\"left\") and SPEED < 0:
 			SPEED += 50
 		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\"):
+			JUMPFORCE = -1400
 			sprint = 200
 			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.05)
 		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\"):
+			JUMPFORCE = -1400
 			sprint = -200
 			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
 			if velocity.x < -512:
 				velocity.x = -512
-		if Input.is_action_pressed(\"Run\") and not is_on_floor() and Input.is_action_pressed(\"right\"):
-			if velocity.y > 0:
-				GRAVITY = 55
-			velocity.y = velocity.y + -5
-			SPEED = SPEED + 15
 		if Input.is_action_pressed(\"Run\") and not Input.is_action_pressed(\"right\"):
 			sprint = 0
 		if Input.is_action_pressed(\"Run\") and not Input.is_action_pressed(\"left\"):
 			sprint = 0
+		if Input.is_action_just_released(\"Run\"):
+			JUMPFORCE = -1230
 		if Input.is_action_just_released(\"right\"):
 			velocity.x = lerp(velocity.x, 0, friction)
 		if Input.is_action_just_released(\"left\"):
 			velocity.x = lerp(velocity.x, 0, friction)
 func Animation():
 	if ANIM:
+		if Input.is_action_pressed(\"ui_up\"):
+			if shroom == true:
+				sprite.play(\"biglookup\")
+		if Input.is_action_pressed(\"ui_down\"):
+			if shroom == true:
+				sprite.play(\"bigdown\")
 		if Input.is_action_pressed(\"right\"):
 			if shroom == false:
-				$Sprite.play(\"Walk\")
-			$Sprite.flip_h = true
+				sprite.play(\"Walk\")
+			sprite.flip_h = true
 			if shroom == true:
-				$Sprite.play(\"bigwalk\")
+				sprite.play(\"bigwalk\")
 		if Input.is_action_pressed(\"left\"):
 			if shroom == false:
-				$Sprite.play(\"Walk\")
+				sprite.play(\"Walk\")
 			if shroom == true:
-				$Sprite.play(\"bigwalk\")
-			$Sprite.flip_h = false
+				sprite.play(\"bigwalk\")
+			sprite.flip_h = false
 		if not Input.is_action_pressed(\"left\") and not Input.is_action_pressed(\"right\"):
 			if shroom == false:
-				$Sprite.play(\"idle\")
+				sprite.play(\"idle\")
 			if shroom == true:
-				$Sprite.play(\"bigidle\")
+				sprite.play(\"bigidle\")
 		if not is_on_floor():
 			if shroom == false:
-				$Sprite.play(\"Air\")
+				sprite.play(\"Air\")
 			if shroom == true:
-				$Sprite.play(\"bigair\")
+				sprite.play(\"bigair\")
 		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\") and is_on_floor() or Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\") and is_on_floor():
-			$Sprite.set_speed_scale(2)
+			sprite.set_speed_scale(2)
 		else:
-			$Sprite.set_speed_scale(1)
+			sprite.set_speed_scale(1)
 	
 func _physics_process(delta):
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
+	print(velocity.x)
+	if velocity.x > 500:
+		velocity.x = 500
+	if velocity.x < -500:
+		velocity.x = -500
 	if shroom == true:
-		$CollisionShape2D.disabled = true
-		$bigco.disabled = false
-		print($CollisionShape2D.shape.extents)
+		bigco.disabled = false
+		print(bigco.shape.extents)
 	if velocity.x > 450:
 		friction = -0.2
 	if is_on_ceiling():
 		velocity.y = 25
 	if velocity.x > 0 and is_on_floor():
-		$Sprite.play(\"walk\")
+		sprite.play(\"walk\")
 	if not is_on_floor():
 		can_jump = false
 		if shroom == false:
-			$CollisionShape2D.shape.extents = Vector2(23, 36.5)
+			collision.shape.extents = Vector2(23, 36.5)
 		if shroom == true:
-			$CollisionShape2D.shape.extents = Vector2(23, 38)
+			bigco.shape.extents = Vector2(23, 43)
 		if velocity.y > 0:
-			GRAVITY = 55
+			GRAVITY = lerp(GRAVITY, 55, 0.5)
 			if shroom == false:
-				$Sprite.play(\"Fall\")
+				sprite.play(\"Fall\")
 			if shroom == true:
-				$Sprite.play(\"bigfall\")
+				sprite.play(\"bigfall\")
 		velocity.y += GRAVITY
 		friction = 0.4
 		coyote.start()
@@ -183,8 +199,9 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = 170
 		can_jump = true
-		$CollisionShape2D.shape.extents = Vector2(22, 34.2)
-		friction = 0.5
+		collision.shape.extents = Vector2(22, 34.2)
+		bigco.shape.extents = Vector2(22.2505, 41.488098)
+		friction = 0.8
 	if GRAVITY < 40:
 		GRAVITY = 40
 	if not is_on_floor() and was_on_floor and not is_jumping:
@@ -198,7 +215,7 @@ func bounce():
 
 
 func ouch(var enemyposx):
-	$Sprite.play(\"death\")
+	sprite.play(\"death\")
 	set_modulate(Color(1,0.3,0.3,0.3))
 	velocity.y = JUMPFORCE * 0.8
 	if position.x < enemyposx:
@@ -208,7 +225,7 @@ func ouch(var enemyposx):
 	
 	Input.action_release(\"left\")
 	Input.action_release(\"right\")
-	$Timer.start()
+	timer.start()
 	
 
 
@@ -232,8 +249,8 @@ func _on_Spike1_body_entered(body):
 		
 		Input.action_release(\"left\")
 		Input.action_release(\"right\")
-		$Timer.start()
-		$Sprite.play(\"Fall\")
+		timer.start()
+		sprite.play(\"Fall\")
 
 
 
@@ -278,7 +295,7 @@ func _on_Area2D_body_entered(body):
 		Timer5.start()
 		CourseClear.play()
 		music.stop()
-		$Sprite.set_speed_scale(1)
+		sprite.set_speed_scale(1)
 		
 
 func _on_Timer2_timeout():
@@ -302,8 +319,10 @@ func _on_Coyote_timeout():
 
 
 func _on_Timer5_timeout():
-	$Sprite.play(\"VICTORY\")
-
+	if shroom == false:
+		sprite.play(\"VICTORY\")
+	if shroom == true: 
+		sprite.play(\"bigvictory\")
 #GOALPOST DONE
 
 
@@ -314,8 +333,8 @@ func _on_Bullet1_body_entered(body):
 		
 		Input.action_release(\"left\")
 		Input.action_release(\"right\")
-		$KILL.start()
-		$Sprite.play(\"Fall\")
+		kill.start()
+		sprite.play(\"Fall\")
 
 
 func _on_KILL_timeout():
@@ -333,12 +352,12 @@ onready var pipecoltop = get_node(\"../Pipes/Pipe/top/CollisionShape2D\")
 func _on_top_body_entered(body):
 	if body.is_in_group(\"players\"):
 		music.stop()
-		$pipesfx.play()
-		$pipe.start()
+		pipesfx.play()
+		pipe.start()
 		INPUT = false
 		ANIM = false
 		SPEED = 350
-		$Sprite.play(\"walk\")
+		sprite.play(\"walk\")
 func _on_pipe_timeout():
 	INPUT = true
 	ANIM = true
@@ -397,24 +416,24 @@ animations = [ {
 "name": "VICTORY",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
-"name": "biglookup",
+"name": "bigair",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "bigwalk",
+"speed": 9.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 9.0
 }, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ ExtResource( 16 ) ],
 "loop": true,
-"name": "Air",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 19 ) ],
-"loop": true,
-"name": "bigidle",
+"name": "bigvictory",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
@@ -422,14 +441,19 @@ animations = [ {
 "name": "Run",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 16 ) ],
+"frames": [ ExtResource( 17 ) ],
 "loop": true,
-"name": "bigvictory",
+"name": "biglookup",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ) ],
+"frames": [ ExtResource( 19 ) ],
 "loop": true,
-"name": "death",
+"name": "bigidle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "bigduck",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
@@ -437,19 +461,14 @@ animations = [ {
 "name": "bigfall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ SubResource( 4 ) ],
 "loop": true,
-"name": "bigair",
+"name": "Air",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 21 ), ExtResource( 18 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
-"name": "bigwalk",
-"speed": 9.0
-}, {
-"frames": [ ExtResource( 20 ) ],
-"loop": true,
-"name": "bigduck",
+"name": "death",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 6 ) ],
@@ -459,32 +478,35 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "New Anim 2",
-"speed": 5.0
+"name": "yowalk",
+"speed": 11.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "New Anim 3",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 22 ) ],
+"frames": [ ExtResource( 25 ) ],
+"loop": true,
+"name": "yoair",
+"speed": 5.0
+}, {
+"frames": [  ],
 "loop": true,
 "name": "yoidle",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "yowalk",
-"speed": 9.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "yoair",
+"name": "New Anim 2",
 "speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 22.2505, 41.4881 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 10, 46.945 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "players",
@@ -497,6 +519,7 @@ wait_time = 0.9
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -539,8 +562,13 @@ one_shot = true
 stream = ExtResource( 1 )
 
 [node name="bigco" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.8909, 0 )
 shape = SubResource( 8 )
+disabled = true
+
+[node name="bigyo" type="CollisionShape2D" parent="."]
+shape = SubResource( 9 )
 disabled = true
 
 [connection signal="timeout" from="pipe" to="." method="_on_pipe_timeout"]

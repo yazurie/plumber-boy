@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SNES - Super Mario World - Backgrounds - Copy.png-9e59ccc44a6aaed2e8463f65520de980.stex"
+path="res://.import/icon.png-ff762ad274f6005e20bef729c89274fe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SNES - Super Mario World - Backgrounds - Copy.png"
-dest_files=[ "res://.import/SNES - Super Mario World - Backgrounds - Copy.png-9e59ccc44a6aaed2e8463f65520de980.stex" ]
+source_file="res://ASSETS/icon.png"
+dest_files=[ "res://.import/icon.png-ff762ad274f6005e20bef729c89274fe.stex" ]
 
 [params]
 

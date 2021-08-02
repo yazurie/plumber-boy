@@ -50,6 +50,8 @@ func _on_sides_checker_body_entered(body):
 		print (\"ouch\")
 		$Collision.disabled = true
 		body.ouch(position.x)
+	if not body.is_in_group(\"players\"):
+		queue_free()
 
 func _on_Timer_timeout():
 	queue_free()
@@ -105,9 +107,6 @@ scale = Vector2( 1.7, 1.7 )
 collision_layer = 16
 collision_mask = 35
 script = SubResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.222725, 0.8909 )
@@ -125,7 +124,9 @@ collision_layer = 16
 collision_mask = 33
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="top_checker"]
-polygon = PoolVector2Array( -44.097, -324.189, -40.7695, -332.507, 121.449, -330.844, 126.441, -290.081, 167.203, -292.577, 167.203, -330.844, 329.422, -332.507, 61.553, -93.7549 )
+position = Vector2( -230.188, 0 )
+scale = Vector2( 1.5214, 1 )
+polygon = PoolVector2Array( -37.3913, -167.741, -7.89795, -212.612, 121.449, -330.844, 126.441, -290.081, 167.203, -292.577, 167.203, -330.844, 383.706, -327.286, 60.92, -68.0269 )
 
 [node name="sides_checker" type="Area2D" parent="."]
 position = Vector2( 90.0857, 8.05341 )
@@ -133,7 +134,7 @@ collision_layer = 0
 collision_mask = 33
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sides_checker"]
-polygon = PoolVector2Array( -136.678, -330.578, -305.552, -250.717, -367.944, -189.989, -409.538, -84.3387, -418.689, -33.5934, -418.689, 47.9319, -391.237, 123.634, -347.979, 203.495, -298.897, 254.241, -214.876, 299.995, -129.191, 329.111, 34.691, 327.447, 34.691, 288.348, 76.2854, 290.012, 77.1176, 326.615, 241, 328.279, 238.504, -338.897, -28.5327, -95.1533 )
+polygon = PoolVector2Array( -136.678, -330.578, -305.552, -250.717, -367.944, -189.989, -409.538, -84.3387, -418.689, -33.5934, -418.689, 47.9319, -391.237, 123.634, -347.979, 203.495, -298.897, 254.241, -214.876, 299.995, -129.191, 329.111, 34.691, 327.447, 34.691, 288.348, 76.2854, 290.012, 77.1176, 326.615, 241, 328.279, 236.075, -268.033, -28.5327, -95.1533 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3
@@ -146,7 +147,7 @@ stream = ExtResource( 2 )
 polygon = PoolVector2Array( -49.9203, -317.533, -287.009, -139.509, -305.311, -77.1171, -321.948, 27.7011, -262.884, 174.114, -164.851, 277.592, -71.4276, 313.728, 111.895, 323.423, 113.962, 261.067, 182.09, 267.355, 184.186, 330.242, 323.585, 330.242, 320.441, -324.83, 175.801, -319.59, 174.753, -287.098, 117.107, -276.617, 109.77, -324.83 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 1.04349, 2.68183 )
+position = Vector2( 28.4647, -22.2467 )
 scale = Vector2( 32.968, 33.4453 )
 
 [connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]

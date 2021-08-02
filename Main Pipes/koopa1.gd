@@ -48,9 +48,11 @@ func _on_top_checker_body_entered(body):
 		squish = squish + 1
 		print(squish)
 		print ($CollisionShape2D.shape.extents)
-		$side.start()
 		$sides_checker/CollisionShape2D.disabled = true
 		$sides_checker/CollisionShape2D2.disabled = true
+		$top_checker/CollisionShape2D.disabled = true
+		$sides_checker/smallco.disabled = false
+		$top_checker/smallco.disabled = false
 		
 		if squish == 2:
 			$CollisionShape2D.disabled = true
@@ -78,9 +80,7 @@ func _on_Timer_timeout():
 
 
 
-func _on_side_timeout():
-	$sides_checker/CollisionShape2D.disabled = false
-	$sides_checker/CollisionShape2D2.disabled = false
+
 
 
 func _on_VisibilityNotifier2D_screen_exited():
