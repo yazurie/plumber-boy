@@ -82,7 +82,7 @@ func _on_VisibilityNotifier2D_screen_entered():
 "
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14.5087, 16.0929 )
+extents = Vector2( 12.8173, 4.18951 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
@@ -124,12 +124,9 @@ scale = Vector2( 1.7, 1.7 )
 collision_layer = 16
 collision_mask = 35
 script = SubResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3.11814, 7.12719 )
+position = Vector2( 2.77869, 18.9681 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
