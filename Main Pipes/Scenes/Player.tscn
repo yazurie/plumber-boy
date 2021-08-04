@@ -385,18 +385,18 @@ extents = Vector2( 22.3913, 33.3823 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 57, 77 )
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 55, 80 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 60, 65 )
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 57, 77 )
 
 [sub_resource type="AtlasTexture" id=5]
 flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 55, 80 )
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 60, 65 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -415,19 +415,9 @@ animations = [ {
 "name": "Run",
 "speed": 9.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "VICTORY",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
 "name": "bigduck",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 3 ) ],
-"loop": true,
-"name": "Air",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 7 ) ],
@@ -435,24 +425,9 @@ animations = [ {
 "name": "Walk",
 "speed": 9.0
 }, {
-"frames": [ ExtResource( 19 ) ],
-"loop": true,
-"name": "bigidle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ) ],
-"loop": false,
-"name": "Fall",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "bigvictory",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "biglookup",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
@@ -460,14 +435,9 @@ animations = [ {
 "name": "bigfall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 21 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"frames": [ ExtResource( 19 ) ],
 "loop": true,
-"name": "bigwalk",
-"speed": 9.0
-}, {
-"frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "death",
+"name": "bigidle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -475,20 +445,50 @@ animations = [ {
 "name": "bigair",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "VICTORY",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "bigwalk",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "Air",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "biglookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 25 ) ],
+"loop": true,
+"name": "yoair",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "skid",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "bigspin",
 "speed": 10.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "New Anim 3",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 24 ) ],
-"loop": true,
-"name": "yoidle",
-"speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
@@ -500,20 +500,20 @@ animations = [ {
 "name": "bigskid",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "skid",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 25 ) ],
-"loop": true,
-"name": "yoair",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "yowalk",
 "speed": 3.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "yoidle",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim 3",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
@@ -539,7 +539,6 @@ shape = SubResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "Run"
-frame = 1
 playing = true
 
 [node name="Camera" type="Camera2D" parent="."]
