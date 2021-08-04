@@ -123,7 +123,9 @@ func Animation():
 func _physics_process(delta):
 	input(delta)
 	Animation()
-	move_and_slide(velocity, Vector2.UP) 
+	move_and_slide(velocity, Vector2.UP)
+	print("test")
+	#monke banana
 	if velocity.x > 450:
 		friction = -0.2
 	if is_on_ceiling():

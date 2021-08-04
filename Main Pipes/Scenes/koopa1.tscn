@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://koopa1.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/koopa1.gd" type="Script" id=1]
 [ext_resource path="res://SOUNDS/smw_stomp.wav" type="AudioStream" id=2]
 [ext_resource path="res://ASSETS/koopa/koopa 1 80.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/koopa/koopa 2 80.png" type="Texture" id=4]
@@ -13,11 +13,6 @@ extents = Vector2( 48.3417, 83.5087 )
 animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "squish2",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
 "name": "squish",
 "speed": 8.0
 }, {
@@ -25,24 +20,31 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "squish2",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 68.7498, 7.87842 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 43.9185, 10 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 6.74426, 55.3781 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5.96106, 60.3672 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 33.5854, 24.3086 )
 
-[node name="koopa1" type="KinematicBody2D"]
+[node name="koopa1" type="KinematicBody2D" groups=[
+"koopa",
+]]
 position = Vector2( 5335.32, -499.564 )
 collision_layer = 16
 collision_mask = 35
@@ -58,6 +60,7 @@ position = Vector2( -239.102, 24.4212 )
 scale = Vector2( 2.2, 2.2 )
 frames = SubResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="floor_checker" type="RayCast2D" parent="."]
@@ -77,7 +80,7 @@ shape = SubResource( 3 )
 
 [node name="smallco" type="CollisionShape2D" parent="top_checker"]
 position = Vector2( -242.325, 2.67273 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="sides_checker" type="Area2D" parent="."]
@@ -87,11 +90,11 @@ collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sides_checker"]
 position = Vector2( -385.407, -1.59375 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="sides_checker"]
 position = Vector2( -269.909, 0.302922 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="smallco" type="CollisionShape2D" parent="sides_checker"]
 position = Vector2( -329.633, 29.3996 )

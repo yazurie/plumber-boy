@@ -72,8 +72,6 @@ func _on_sides_checker_body_entered(body):
 	if body.is_in_group("players"):
 		print ("ouch")
 		body.ouch(position.x)
-	if body.is_in_group("killable") and squish == 1:
-		body.ouch(position.x)
 func _on_Timer_timeout():
 	queue_free()
 

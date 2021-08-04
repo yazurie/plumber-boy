@@ -5,7 +5,7 @@ var velocity = Vector2()
 export var direction = -1
 var squish = 0
 var active
-
+onready var timer = get_node("Timer2")
 func _ready():
 	if active == true:
 		if direction == 1:
@@ -34,7 +34,17 @@ func _physics_process(delta):
 	
 	
 
-
+func ouch(var enemyposx):
+	set_modulate(Color(1,0.3,0.3,0.3))
+	velocity.y = -1200 * 0.8
+	if position.x < enemyposx:
+		velocity.x = -800
+	elif position.x > enemyposx:
+		velocity.x = 800
+	
+	Input.action_release("left")
+	Input.action_release("right")
+	timer.start()
 
 
 
@@ -71,6 +81,8 @@ func _on_sides_checker_body_entered(body):
 		print ("ouch")
 		body.ouch(position.x)
 		$top_checker/CollisionShape2D.disabled = true
+	if body.is_in_group("koopa"):
+		queue_free()
 func _on_Timer_timeout():
 	queue_free()
 

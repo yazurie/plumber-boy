@@ -1,0 +1,529 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://SOUNDS/Super-Mario-World-Title-Screen-_SNES_.ogv" type="VideoStream" id=1]
+[ext_resource path="res://SOUNDS/smw_pipe.wav" type="AudioStream" id=2]
+[ext_resource path="res://ASSETS/mario/big duck.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/mario/big fall.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/mario/run1.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/mario/big jump.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/mario/skid.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/mario/alt idle no extra.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/mario/alt skid.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/mario/run2.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/mario/big walk1.png" type="Texture" id=12]
+[ext_resource path="res://ASSETS/mario/alt fall no extra.png" type="Texture" id=13]
+[ext_resource path="res://ASSETS/mario/dead.png" type="Texture" id=14]
+[ext_resource path="res://ASSETS/mario/big victory.png" type="Texture" id=15]
+[ext_resource path="res://ASSETS/mario/big up.png" type="Texture" id=16]
+[ext_resource path="res://ASSETS/mario/victory.png" type="Texture" id=17]
+[ext_resource path="res://ASSETS/y2mate.com - Super Mario World  Jump Sound Effect.ogg" type="AudioStream" id=18]
+[ext_resource path="res://ASSETS/mario/alt walk no extra.png" type="Texture" id=19]
+[ext_resource path="res://ASSETS/mario/big idle.png" type="Texture" id=20]
+[ext_resource path="res://ASSETS/mario/alt jump no extra.png" type="Texture" id=21]
+[ext_resource path="res://ASSETS/mario/big walk2.png" type="Texture" id=22]
+[ext_resource path="res://fonts/SuperMarioBros-ov7d.ttf" type="DynamicFontData" id=23]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+
+
+
+
+
+
+var jump_timer = 0
+var velocity = Vector2()
+const SHORTHOP = -600
+export var SPEED = 0
+var JUMPFORCE = -1230
+var GRAVITY = 40
+export var MAXSPEED = 450
+var sprint = 0
+var friction = 0.8
+var accel = 0.1
+onready var coyote = $Coyote
+var can_jump = true
+var INPUT = true
+var ANIM = true
+var is_jumping = false
+var was_on_floor = is_on_floor()
+var runtime = 0
+var direction = 0
+var goals = 0
+
+
+
+
+
+func jump_cut():
+	if velocity.y < -600:
+		velocity.y = -600
+	if velocity.y < -450:
+		velocity.y = -450
+
+	
+func input(delta):
+	if INPUT:
+		if Input.is_action_just_pressed(\"ui_accept\"):
+			get_tree().change_scene(\"res://Scenes//Level1.tscn\")
+		var timedict = OS.get_time()
+		var hour = timedict.hour;
+	
+	
+		if Input.is_action_just_pressed(\"jump\"):
+			if can_jump:
+				is_jumping = true
+				velocity.y = JUMPFORCE + GRAVITY
+				$Jumpsfx.play()
+			if not is_on_floor():
+				$Buffer.start()
+		if Input.is_action_pressed(\"right\"):
+			SPEED = 400
+			direction = 1
+		if not Input.is_action_pressed(\"right\") and SPEED > 0:
+			
+			SPEED = -50
+			
+		if Input.is_action_just_released(\"jump\"):
+			jump_cut()
+			velocity.y = lerp(velocity.y, JUMPFORCE, 0.1) + GRAVITY * delta
+		if Input.is_action_pressed(\"left\"):
+			SPEED = -400
+			direction = -1
+		if not Input.is_action_pressed(\"left\") and SPEED < 0:
+			SPEED += 50
+		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\"):
+			sprint = 200
+			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.05)
+		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\"):
+			sprint = -200
+			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
+			if velocity.x < -512:
+				velocity.x = -512
+		if Input.is_action_pressed(\"Run\") and not is_on_floor() and Input.is_action_pressed(\"right\"):
+			if velocity.y > 0:
+				GRAVITY = 55
+			velocity.y = velocity.y + -5
+			SPEED = SPEED + 15
+		if Input.is_action_pressed(\"Run\") and not Input.is_action_pressed(\"right\"):
+			sprint = 0
+		if Input.is_action_pressed(\"Run\") and not Input.is_action_pressed(\"left\"):
+			sprint = 0
+		if Input.is_action_just_released(\"right\"):
+			velocity.x = lerp(velocity.x, 0, friction)
+		if Input.is_action_just_released(\"left\"):
+			velocity.x = lerp(velocity.x, 0, friction)
+func Animation():
+	if ANIM:
+		if Input.is_action_pressed(\"right\"):
+			$Sprite.play(\"Walk\")
+			$Sprite.flip_h = true
+		if Input.is_action_pressed(\"left\"):
+			$Sprite.play(\"Walk\")
+			$Sprite.flip_h = false
+		if not Input.is_action_pressed(\"left\") and not Input.is_action_pressed(\"right\"):
+			$Sprite.play(\"idle\")
+		if not is_on_floor():
+			$Sprite.play(\"Air\")
+		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\") and is_on_floor() or Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\") and is_on_floor():
+			$Sprite.set_speed_scale(2)
+		else:
+			$Sprite.set_speed_scale(1)
+	
+func _physics_process(delta):
+	input(delta)
+	Animation()
+	move_and_slide(velocity, Vector2.UP) 
+	#eat banan
+	if velocity.x > 450:
+		friction = -0.2
+	if is_on_ceiling():
+		velocity.y = 25
+	if velocity.x > 0 and is_on_floor():
+		$Sprite.play(\"walk\")
+	if not is_on_floor():
+		can_jump = false
+		$CollisionShape2D.shape.extents = Vector2(23, 36.5)
+		if velocity.y > 0:
+			GRAVITY = 55
+			$Sprite.play(\"Fall\")
+		velocity.y += GRAVITY
+		friction = 0.4
+		coyote.start()
+	velocity.x = lerp(velocity.x, SPEED, accel) + sprint
+	var was_on_floor = is_on_floor()
+	if is_on_floor():
+		velocity.y = 170
+		can_jump = true
+		$CollisionShape2D.shape.extents = Vector2(22, 34.2)
+		friction = 0.5
+	if GRAVITY < 40:
+		GRAVITY = 40
+	if not is_on_floor() and was_on_floor and not is_jumping:
+		coyote.start()
+		velocity.y = 0
+		can_jump = true
+func bounce():
+	velocity.y = JUMPFORCE * 0.6
+	
+
+
+
+func ouch(var enemyposx):
+	$Sprite.play(\"death\")
+	set_modulate(Color(1,0.3,0.3,0.3))
+	velocity.y = JUMPFORCE * 0.8
+	if position.x < enemyposx:
+		velocity.x = -800
+	elif position.x > enemyposx:
+		velocity.x = 800
+	
+	Input.action_release(\"left\")
+	Input.action_release(\"right\")
+	$Timer.start()
+	
+
+
+func _on_Timer_timeout():
+	get_tree().change_scene(\"res://Level1.tscn\")
+
+
+func _on_void_body_entered(body):
+	if body.is_in_group(\"players\"):
+		get_tree().change_scene(\"res://Level1.tscn\")
+
+
+onready var Coin1 = get_node(\"../Coin/Coin1\")
+onready var BreakableBlock = get_node(\"../BreakableBlock/BreakableBlock1\")
+
+
+func _on_Spike1_body_entered(body):
+	if body.is_in_group(\"players\"):
+		set_modulate(Color(1,0.3,0.3,0.3))
+		velocity.y = JUMPFORCE * 0.8
+		
+		Input.action_release(\"left\")
+		Input.action_release(\"right\")
+		$Timer.start()
+		$Sprite.play(\"Fall\")
+
+
+
+func _on_BreakableBlock1_body_entered(body):
+	if body.is_in_group(\"players\"):
+		BreakableBlock.broke()
+
+
+
+
+
+
+
+
+#GOALPOST START
+
+onready var Timer2 = get_node(\"../GOALPOST/Area2D/Timer2\")
+onready var CourseClear = get_node(\"../GOALPOST/Area2D/CourseClear\")
+onready var IMOUT = get_node(\"../GOALPOST/Area2D/IMOUT\")
+onready var music = get_node(\"../music\")
+onready var level = get_node(\"../../Level1\")
+onready var background = get_node(\"../Background\")
+onready var tiles = get_node(\"../TileMap\")
+onready var coloor = get_node(\"../ColorRect\")
+onready var goal = get_node(\"../GOALPOST/\")
+onready var Timer3 = get_node(\"../GOALPOST/Area2D/Timer3\")
+onready var Timer4 = get_node(\"../GOALPOST/Area2D/Timer4\")
+onready var Timer5 = get_node(\"../GOALPOST/Area2D/Timer5\")
+onready var clear = get_node(\"../LABELS/CLEAR\")
+func _on_Area2D_body_entered(body):
+	if body.is_in_group(\"players\"):
+		goals = goals + 1
+		clear.visible = true
+		INPUT = false
+		ANIM = false
+		tiles.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		coloor.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		goal.set_modulate(lerp(get_modulate(), Color(0,0,0,1), 1))
+		Timer2.start()
+		Timer3.start()
+		Timer4.start()
+		Timer5.start()
+		CourseClear.play()
+		music.stop()
+		$Sprite.set_speed_scale(1)
+		
+
+func _on_Timer2_timeout():
+	get_tree().change_scene(\"res://Main.tscn\")
+
+
+func _on_Timer3_timeout():
+	IMOUT.play()
+	set_modulate(lerp(get_modulate(), Color(0,0,0,5), 1))
+
+
+func _on_Timer4_timeout():
+	CourseClear.stop()
+
+
+
+
+func _on_Coyote_timeout():
+	velocity.y += GRAVITY
+	can_jump = false
+
+
+func _on_Timer5_timeout():
+	$Sprite.play(\"VICTORY\")
+
+#GOALPOST DONE
+
+
+func _on_Bullet1_body_entered(body):
+	if body.is_in_group(\"players\"):
+		set_modulate(Color(1,0.3,0.3,0.3))
+		velocity.y = JUMPFORCE * 0.8
+		
+		Input.action_release(\"left\")
+		Input.action_release(\"right\")
+		$KILL.start()
+		$Sprite.play(\"Fall\")
+
+
+func _on_KILL_timeout():
+	get_tree().change_scene(\"res://Level1.tscn\")
+
+
+
+
+
+
+
+onready var pipecol = get_node(\"../Pipes/Pipe/CollisionShape2D\")
+onready var pipecoltop = get_node(\"../Pipes/Pipe/top/CollisionShape2D\")
+#Pipe function
+func _on_top_body_entered(body):
+	if body.is_in_group(\"players\"):
+		music.stop()
+		$pipesfx.play()
+		$pipe.start()
+		INPUT = false
+		ANIM = false
+		SPEED = 350
+		$Sprite.play(\"walk\")
+func _on_pipe_timeout():
+	INPUT = true
+	ANIM = true
+	position.x = 31127.227
+	position.y = -633.817
+#Pipe function ends
+
+#new coin shit
+
+func _on_body_entered(body):
+	if body.is_in_group(\"coins\"):
+		print(\"Coin collected\")
+		body.ded()
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 22.3913, 33.3823 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 66, 84 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 57, 77 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 60, 65 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 55, 80 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "brake",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "VICTORY",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "bigduck",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "Air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "bigidle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "bigvictory",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "biglookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "bigfall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 12 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "bigwalk",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "bigair",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 23 )
+
+[node name="Main" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -8.689
+margin_top = -86.0834
+margin_right = 31.311
+margin_bottom = -46.0834
+rect_scale = Vector2( 40, 40 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+margin_left = 23.8351
+margin_top = -20.991
+margin_right = 32.8351
+margin_bottom = -13.991
+rect_scale = Vector2( 42, 40 )
+stream = ExtResource( 1 )
+volume_db = 9.65
+autoplay = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="VideoPlayer"]
+position = Vector2( 4.03086, 3.44071 )
+zoom = Vector2( 1, 1.2 )
+
+[node name="Player" type="KinematicBody2D" parent="." groups=[
+"players",
+]]
+position = Vector2( -956.057, 3124.49 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="pipe" type="Timer" parent="Player"]
+wait_time = 0.9
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Player"]
+frames = SubResource( 7 )
+animation = "Walk"
+playing = true
+
+[node name="Jumpsfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 18 )
+volume_db = -10.097
+
+[node name="Timer" type="Timer" parent="Player"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Coyote" type="Timer" parent="Player"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Buffer" type="Timer" parent="Player"]
+wait_time = 0.2
+
+[node name="KILL" type="Timer" parent="Player"]
+
+[node name="run" type="Timer" parent="Player"]
+wait_time = 4.0
+one_shot = true
+
+[node name="pipesfx" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 111.335
+margin_top = 109.464
+margin_right = 1102.33
+margin_bottom = 299.464
+custom_fonts/font = SubResource( 8 )
+text = "PRESS START TO BEGIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Player/pipe" to="Player" method="_on_pipe_timeout"]
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Player/Coyote" to="Player" method="_on_Coyote_timeout"]
+[connection signal="timeout" from="Player/Buffer" to="Player" method="_on_Buffer_timeout"]
+[connection signal="timeout" from="Player/KILL" to="Player" method="_on_KILL_timeout"]
