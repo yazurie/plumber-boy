@@ -1,6 +1,20 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [0.0.4] - 2021-8-3
+
+### Added
+
+- tons of bugfixes
+- mushroom powerup done
+- physics tweaks again
+- optimization (performance is now almost 50% better)
+- title screen
+- prototype of level 2
+
+## TO DO LIST CHANGES
+- mushroom powerup done
+
 ## [0.0.3] - 2021-7-19
 
 ### Added
@@ -56,6 +70,6 @@ All notable changes to this project will be documented in this file.
 - Acceleration and friction (DONE)
 - Variable gravity (DONE)
 - Make Koopas and Piranha Plants (IN PROGRESS)
-- Make Mushroom Powerup (IN PROGRESS)
+- Make Mushroom Powerup (DONE)
 - Make Goalpost (DONE)
 - Backgrounds (DONE)
