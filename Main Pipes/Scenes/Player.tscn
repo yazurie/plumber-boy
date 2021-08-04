@@ -59,6 +59,9 @@ var goals = 0
 var shroom = false
 var run = false
 var running = false
+var right = false
+var left = false
+
 onready var shrooom = get_node(\"../Mushrooms/Mushroom1\")
 onready var player = get_node(\"../Player\")
 onready var collision = get_node(\"CollisionShape2D\")
@@ -101,9 +104,11 @@ func input(delta):
 		if Input.is_action_pressed(\"right\"):
 			SPEED = 400
 			direction = 1
-		if not Input.is_action_pressed(\"right\") and SPEED > 0:
+			right = true
+		if Input.is_action_just_released(\"right\"):
+			SPEED = 0
+			right = false
 			
-			SPEED = -50
 			
 		if Input.is_action_just_released(\"jump\"):
 			jump_cut()
@@ -111,6 +116,7 @@ func input(delta):
 		if Input.is_action_pressed(\"left\"):
 			SPEED = -400
 			direction = -1
+			left = true
 		if not Input.is_action_pressed(\"left\") and SPEED < 0:
 			SPEED += 50
 		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\"):
@@ -118,11 +124,13 @@ func input(delta):
 			sprint = 200
 			velocity.x = lerp(velocity.x, velocity.x + sprint, 0.05)
 			runtime = OS.get_ticks_msec()
+			running = true
 		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\"):
 			JUMPFORCE = -1400
 			sprint = -200
 			velocity.x = lerp(velocity.x, velocity.x + -162, 0.08)
 			runtime = OS.get_ticks_msec()
+			running = true
 			if velocity.x < -512:
 				velocity.x = -512
 		if Input.is_action_pressed(\"Run\") and not Input.is_action_pressed(\"right\"):
@@ -131,55 +139,62 @@ func input(delta):
 			sprint = 0
 		if Input.is_action_just_released(\"Run\"):
 			JUMPFORCE = -1230
+			runtime = 0
+			running = false
+			sprite.stop()
 		if Input.is_action_just_released(\"right\"):
 			velocity.x = lerp(velocity.x, 0, friction)
+			runtime = 0
+			running = false
+			sprite.stop()
+			right = false
 		if Input.is_action_just_released(\"left\"):
 			velocity.x = lerp(velocity.x, 0, friction)
+			runtime = 0
+			running = false
+			sprite.stop()
+			left = false
 func Animation():
 	if ANIM:
-		if Input.is_action_pressed(\"ui_up\"):
-			if shroom == true:
-				sprite.play(\"biglookup\")
-		if Input.is_action_pressed(\"ui_down\"):
-			if shroom == true:
-				sprite.play(\"bigdown\")
-		if Input.is_action_pressed(\"right\"):
+		if is_on_floor():
+			if running == true:
+				sprite.set_speed_scale(1.6)
+			else:
+				sprite.set_speed_scale(1)
 			if shroom == false:
-				if running == true:
-					sprite.play(\"Run\")
-				if running == false:
+				if right == false and left == false:
+					sprite.play(\"idle\")
+				if right == true:
 					sprite.play(\"Walk\")
-			sprite.flip_h = true
-			if shroom == true:
-				sprite.play(\"bigwalk\")
-		if Input.is_action_pressed(\"left\"):
-			if shroom == false:
-				if running == true:
-					sprite.play(\"Run\")
-				if running == false:
+					sprite.flip_h = true
+				if left == true:
 					sprite.play(\"Walk\")
+					sprite.flip_h = false
 			if shroom == true:
-				sprite.play(\"bigwalk\")
-			sprite.flip_h = false
-		if not Input.is_action_pressed(\"left\") and not Input.is_action_pressed(\"right\"):
-			if shroom == false:
-				sprite.play(\"idle\")
-			if shroom == true:
-				sprite.play(\"bigidle\")
+				if right == false and left == false:
+					sprite.play(\"bigidle\")
+				if right == true:
+					sprite.play(\"bigwalk\")
+					sprite.flip_h = true
+				if left == true:
+					sprite.play(\"bigwalk\")
+					sprite.flip_h
 		if not is_on_floor():
 			if shroom == false:
 				sprite.play(\"Air\")
 			if shroom == true:
 				sprite.play(\"bigair\")
-		if Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"right\") and is_on_floor() or Input.is_action_pressed(\"Run\") and Input.is_action_pressed(\"left\") and is_on_floor():
-			sprite.set_speed_scale(1.7)
-		else:
-			sprite.set_speed_scale(1)
-	
+			if left == true:
+				sprite.flip_h = false
+			if right == true:
+				sprite.flip_h = true
 func _physics_process(delta):
 	input(delta)
 	Animation()
 	move_and_slide(velocity, Vector2.UP) 
+	print (runtime)
+	if runtime >= 5000:
+		running = true
 	if velocity.x > 500:
 		velocity.x = 500
 	if velocity.x < -500:
@@ -524,6 +539,7 @@ shape = SubResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "Run"
+frame = 1
 playing = true
 
 [node name="Camera" type="Camera2D" parent="."]
