@@ -332,18 +332,18 @@ extents = Vector2( 22.3913, 33.3823 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 17 )
-region = Rect2( 0, 0, 66, 84 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 21 )
 region = Rect2( 0, 0, 57, 77 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 60, 65 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 66, 84 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
@@ -369,32 +369,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
-"name": "VICTORY",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "bigduck",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
 "name": "Air",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 19 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 9.0
 }, {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
 "name": "bigidle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 5 ) ],
-"loop": false,
-"name": "Fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
@@ -407,15 +387,35 @@ animations = [ {
 "name": "biglookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "bigfall",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 20 ), ExtResource( 12 ), ExtResource( 22 ) ],
 "loop": true,
 "name": "bigwalk",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "VICTORY",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "bigduck",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "bigfall",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 6 ) ],
 "loop": true,
@@ -431,7 +431,7 @@ animations = [ {
 [sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 23 )
 
-[node name="Main" type="Control"]
+[node name="Title screen" type="Control"]
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -484,6 +484,7 @@ shape = SubResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 7 )
 animation = "Walk"
+frame = 1
 playing = true
 
 [node name="Jumpsfx" type="AudioStreamPlayer" parent="Player"]

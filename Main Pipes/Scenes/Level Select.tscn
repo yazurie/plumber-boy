@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Mario2.gd" type="Script" id=2]
+
+[node name="Level Select" type="Node2D"]
+
+[node name="Mario" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+centered = false
+script = ExtResource( 2 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Mario"]
+position = Vector2( 69.6619, 119.718 )
+enabled = true
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 1
