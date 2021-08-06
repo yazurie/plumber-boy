@@ -15,7 +15,7 @@ func _physics_process(delta):
 	velocity.x = -200
 	
 	
-
+	print(velocity)
 
 
 
